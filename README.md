@@ -95,6 +95,4 @@ python -m pytest .\ghost_v1\tests.py -q
 
 Ghost V1 is an educational research prototype trained on a small synthetic dataset and designed to run locally on CPU. It demonstrates the complete architecture, model specialization, checkpoint handling, structured role contracts and guarded collaboration pipeline. It is not a production code-repair system, and its holdout results should not be compared with large commercial language models.
 
-## Development disclosure
 
-The project was developed with AI-assisted coding and synthetic-data generation under the project author's direction. The repository preserves that disclosure while keeping the source presentation focused on the software architecture and reproducible behavior.
