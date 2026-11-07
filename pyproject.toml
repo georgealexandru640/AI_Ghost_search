@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ghost-v1"
+version = "0.1.0"
+description = "Compact multi-model Transformer prototype for guarded Python error diagnosis and repair"
+requires-python = ">=3.11"
+dependencies = [
+  "torch>=2.6,<3",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8,<10",
+]
+
+[tool.setuptools.packages.find]
+include = ["ghost_v1*"]

@@ -1,0 +1,3266 @@
+{
+  "format_version": 1,
+  "name": "Ghost V1 compact",
+  "idea": "Sapte modele AI locale, antrenate separat, care lucreaza impreuna.",
+  "configs": {
+    "base": {
+      "seed": 20260921,
+      "device": "cpu",
+      "model": {
+        "context_length": 384,
+        "embed_dim": 192,
+        "num_heads": 4,
+        "num_layers": 4,
+        "mlp_ratio": 4,
+        "dropout": 0.0
+      },
+      "training": {
+        "batch_size": 1,
+        "learning_rate": 0.001,
+        "max_steps": 12,
+        "eval_interval": 4,
+        "gradient_clip": 1.0
+      }
+    },
+    "diagnostic": {
+      "seed": 20260922,
+      "device": "cpu",
+      "training": {
+        "batch_size": 1,
+        "learning_rate": 0.0005,
+        "max_steps": 16,
+        "eval_interval": 4,
+        "gradient_clip": 1.0,
+        "max_new_tokens": 128
+      }
+    },
+    "roles": {
+      "repair_a": {
+        "seed": 2026092301,
+        "device": "cpu",
+        "training": {
+          "batch_size": 1,
+          "learning_rate": 0.0005,
+          "max_steps": 12,
+          "eval_interval": 4,
+          "gradient_clip": 1.0,
+          "max_new_tokens": 160
+        }
+      },
+      "repair_b": {
+        "seed": 2026092302,
+        "device": "cpu",
+        "training": {
+          "batch_size": 1,
+          "learning_rate": 0.0004,
+          "max_steps": 12,
+          "eval_interval": 4,
+          "gradient_clip": 1.0,
+          "max_new_tokens": 160
+        }
+      },
+      "ghost_test": {
+        "seed": 20260924,
+        "device": "cpu",
+        "training": {
+          "batch_size": 1,
+          "learning_rate": 0.0005,
+          "max_steps": 12,
+          "eval_interval": 4,
+          "gradient_clip": 1.0,
+          "max_new_tokens": 128
+        }
+      },
+      "ghost_critic": {
+        "seed": 20260925,
+        "device": "cpu",
+        "training": {
+          "batch_size": 1,
+          "learning_rate": 0.0005,
+          "max_steps": 16,
+          "eval_interval": 4,
+          "gradient_clip": 1.0,
+          "max_new_tokens": 128
+        }
+      },
+      "ghost_coordinator": {
+        "seed": 20260926,
+        "device": "cpu",
+        "training": {
+          "batch_size": 1,
+          "learning_rate": 0.0005,
+          "max_steps": 16,
+          "eval_interval": 4,
+          "gradient_clip": 1.0,
+          "max_new_tokens": 128
+        }
+      }
+    }
+  },
+  "tokenizer": {
+    "version": 1,
+    "special_tokens": {
+      "<|bos|>": 256,
+      "<|eos|>": 257,
+      "<|system|>": 258,
+      "<|user|>": 259,
+      "<|assistant|>": 260,
+      "<|tool|>": 261
+    },
+    "merges": [
+      {
+        "left": 32,
+        "right": 34,
+        "new_id": 262
+      },
+      {
+        "left": 34,
+        "right": 58,
+        "new_id": 263
+      },
+      {
+        "left": 44,
+        "right": 262,
+        "new_id": 264
+      },
+      {
+        "left": 263,
+        "right": 262,
+        "new_id": 265
+      },
+      {
+        "left": 105,
+        "right": 110,
+        "new_id": 266
+      },
+      {
+        "left": 116,
+        "right": 101,
+        "new_id": 267
+      },
+      {
+        "left": 34,
+        "right": 264,
+        "new_id": 268
+      },
+      {
+        "left": 97,
+        "right": 108,
+        "new_id": 269
+      },
+      {
+        "left": 263,
+        "right": 32,
+        "new_id": 270
+      },
+      {
+        "left": 111,
+        "right": 114,
+        "new_id": 271
+      },
+      {
+        "left": 32,
+        "right": 32,
+        "new_id": 272
+      },
+      {
+        "left": 115,
+        "right": 101,
+        "new_id": 273
+      },
+      {
+        "left": 108,
+        "right": 101,
+        "new_id": 274
+      },
+      {
+        "left": 100,
+        "right": 101,
+        "new_id": 275
+      },
+      {
+        "left": 112,
+        "right": 114,
+        "new_id": 276
+      },
+      {
+        "left": 114,
+        "right": 101,
+        "new_id": 277
+      },
+      {
+        "left": 99,
+        "right": 101,
+        "new_id": 278
+      },
+      {
+        "left": 123,
+        "right": 34,
+        "new_id": 279
+      },
+      {
+        "left": 97,
+        "right": 32,
+        "new_id": 280
+      },
+      {
+        "left": 266,
+        "right": 101,
+        "new_id": 281
+      },
+      {
+        "left": 116,
+        "right": 105,
+        "new_id": 282
+      },
+      {
+        "left": 97,
+        "right": 109,
+        "new_id": 283
+      },
+      {
+        "left": 108,
+        "right": 281,
+        "new_id": 284
+      },
+      {
+        "left": 270,
+        "right": 279,
+        "new_id": 285
+      },
+      {
+        "left": 92,
+        "right": 34,
+        "new_id": 286
+      },
+      {
+        "left": 92,
+        "right": 110,
+        "new_id": 287
+      },
+      {
+        "left": 111,
+        "right": 110,
+        "new_id": 288
+      },
+      {
+        "left": 114,
+        "right": 114,
+        "new_id": 289
+      },
+      {
+        "left": 289,
+        "right": 271,
+        "new_id": 290
+      },
+      {
+        "left": 101,
+        "right": 120,
+        "new_id": 291
+      },
+      {
+        "left": 269,
+        "right": 95,
+        "new_id": 292
+      },
+      {
+        "left": 115,
+        "right": 116,
+        "new_id": 293
+      },
+      {
+        "left": 111,
+        "right": 117,
+        "new_id": 294
+      },
+      {
+        "left": 125,
+        "right": 264,
+        "new_id": 295
+      },
+      {
+        "left": 276,
+        "right": 111,
+        "new_id": 296
+      },
+      {
+        "left": 97,
+        "right": 116,
+        "new_id": 297
+      },
+      {
+        "left": 100,
+        "right": 105,
+        "new_id": 298
+      },
+      {
+        "left": 102,
+        "right": 105,
+        "new_id": 299
+      },
+      {
+        "left": 116,
+        "right": 40,
+        "new_id": 300
+      },
+      {
+        "left": 117,
+        "right": 108,
+        "new_id": 301
+      },
+      {
+        "left": 272,
+        "right": 272,
+        "new_id": 302
+      },
+      {
+        "left": 111,
+        "right": 116,
+        "new_id": 303
+      },
+      {
+        "left": 69,
+        "right": 290,
+        "new_id": 304
+      },
+      {
+        "left": 100,
+        "right": 95,
+        "new_id": 305
+      },
+      {
+        "left": 115,
+        "right": 105,
+        "new_id": 306
+      },
+      {
+        "left": 34,
+        "right": 295,
+        "new_id": 307
+      },
+      {
+        "left": 46,
+        "right": 112,
+        "new_id": 308
+      },
+      {
+        "left": 111,
+        "right": 275,
+        "new_id": 309
+      },
+      {
+        "left": 266,
+        "right": 300,
+        "new_id": 310
+      },
+      {
+        "left": 308,
+        "right": 121,
+        "new_id": 311
+      },
+      {
+        "left": 108,
+        "right": 111,
+        "new_id": 312
+      },
+      {
+        "left": 44,
+        "right": 32,
+        "new_id": 313
+      },
+      {
+        "left": 103,
+        "right": 101,
+        "new_id": 314
+      },
+      {
+        "left": 118,
+        "right": 101,
+        "new_id": 315
+      },
+      {
+        "left": 118,
+        "right": 105,
+        "new_id": 316
+      },
+      {
+        "left": 97,
+        "right": 267,
+        "new_id": 317
+      },
+      {
+        "left": 101,
+        "right": 99,
+        "new_id": 318
+      },
+      {
+        "left": 112,
+        "right": 271,
+        "new_id": 319
+      },
+      {
+        "left": 276,
+        "right": 310,
+        "new_id": 320
+      },
+      {
+        "left": 97,
+        "right": 110,
+        "new_id": 321
+      },
+      {
+        "left": 267,
+        "right": 114,
+        "new_id": 322
+      },
+      {
+        "left": 269,
+        "right": 273,
+        "new_id": 323
+      },
+      {
+        "left": 58,
+        "right": 32,
+        "new_id": 324
+      },
+      {
+        "left": 105,
+        "right": 100,
+        "new_id": 325
+      }
+    ],
+    "vocab": {
+      "0": "AA==",
+      "1": "AQ==",
+      "2": "Ag==",
+      "3": "Aw==",
+      "4": "BA==",
+      "5": "BQ==",
+      "6": "Bg==",
+      "7": "Bw==",
+      "8": "CA==",
+      "9": "CQ==",
+      "10": "Cg==",
+      "11": "Cw==",
+      "12": "DA==",
+      "13": "DQ==",
+      "14": "Dg==",
+      "15": "Dw==",
+      "16": "EA==",
+      "17": "EQ==",
+      "18": "Eg==",
+      "19": "Ew==",
+      "20": "FA==",
+      "21": "FQ==",
+      "22": "Fg==",
+      "23": "Fw==",
+      "24": "GA==",
+      "25": "GQ==",
+      "26": "Gg==",
+      "27": "Gw==",
+      "28": "HA==",
+      "29": "HQ==",
+      "30": "Hg==",
+      "31": "Hw==",
+      "32": "IA==",
+      "33": "IQ==",
+      "34": "Ig==",
+      "35": "Iw==",
+      "36": "JA==",
+      "37": "JQ==",
+      "38": "Jg==",
+      "39": "Jw==",
+      "40": "KA==",
+      "41": "KQ==",
+      "42": "Kg==",
+      "43": "Kw==",
+      "44": "LA==",
+      "45": "LQ==",
+      "46": "Lg==",
+      "47": "Lw==",
+      "48": "MA==",
+      "49": "MQ==",
+      "50": "Mg==",
+      "51": "Mw==",
+      "52": "NA==",
+      "53": "NQ==",
+      "54": "Ng==",
+      "55": "Nw==",
+      "56": "OA==",
+      "57": "OQ==",
+      "58": "Og==",
+      "59": "Ow==",
+      "60": "PA==",
+      "61": "PQ==",
+      "62": "Pg==",
+      "63": "Pw==",
+      "64": "QA==",
+      "65": "QQ==",
+      "66": "Qg==",
+      "67": "Qw==",
+      "68": "RA==",
+      "69": "RQ==",
+      "70": "Rg==",
+      "71": "Rw==",
+      "72": "SA==",
+      "73": "SQ==",
+      "74": "Sg==",
+      "75": "Sw==",
+      "76": "TA==",
+      "77": "TQ==",
+      "78": "Tg==",
+      "79": "Tw==",
+      "80": "UA==",
+      "81": "UQ==",
+      "82": "Ug==",
+      "83": "Uw==",
+      "84": "VA==",
+      "85": "VQ==",
+      "86": "Vg==",
+      "87": "Vw==",
+      "88": "WA==",
+      "89": "WQ==",
+      "90": "Wg==",
+      "91": "Ww==",
+      "92": "XA==",
+      "93": "XQ==",
+      "94": "Xg==",
+      "95": "Xw==",
+      "96": "YA==",
+      "97": "YQ==",
+      "98": "Yg==",
+      "99": "Yw==",
+      "100": "ZA==",
+      "101": "ZQ==",
+      "102": "Zg==",
+      "103": "Zw==",
+      "104": "aA==",
+      "105": "aQ==",
+      "106": "ag==",
+      "107": "aw==",
+      "108": "bA==",
+      "109": "bQ==",
+      "110": "bg==",
+      "111": "bw==",
+      "112": "cA==",
+      "113": "cQ==",
+      "114": "cg==",
+      "115": "cw==",
+      "116": "dA==",
+      "117": "dQ==",
+      "118": "dg==",
+      "119": "dw==",
+      "120": "eA==",
+      "121": "eQ==",
+      "122": "eg==",
+      "123": "ew==",
+      "124": "fA==",
+      "125": "fQ==",
+      "126": "fg==",
+      "127": "fw==",
+      "128": "gA==",
+      "129": "gQ==",
+      "130": "gg==",
+      "131": "gw==",
+      "132": "hA==",
+      "133": "hQ==",
+      "134": "hg==",
+      "135": "hw==",
+      "136": "iA==",
+      "137": "iQ==",
+      "138": "ig==",
+      "139": "iw==",
+      "140": "jA==",
+      "141": "jQ==",
+      "142": "jg==",
+      "143": "jw==",
+      "144": "kA==",
+      "145": "kQ==",
+      "146": "kg==",
+      "147": "kw==",
+      "148": "lA==",
+      "149": "lQ==",
+      "150": "lg==",
+      "151": "lw==",
+      "152": "mA==",
+      "153": "mQ==",
+      "154": "mg==",
+      "155": "mw==",
+      "156": "nA==",
+      "157": "nQ==",
+      "158": "ng==",
+      "159": "nw==",
+      "160": "oA==",
+      "161": "oQ==",
+      "162": "og==",
+      "163": "ow==",
+      "164": "pA==",
+      "165": "pQ==",
+      "166": "pg==",
+      "167": "pw==",
+      "168": "qA==",
+      "169": "qQ==",
+      "170": "qg==",
+      "171": "qw==",
+      "172": "rA==",
+      "173": "rQ==",
+      "174": "rg==",
+      "175": "rw==",
+      "176": "sA==",
+      "177": "sQ==",
+      "178": "sg==",
+      "179": "sw==",
+      "180": "tA==",
+      "181": "tQ==",
+      "182": "tg==",
+      "183": "tw==",
+      "184": "uA==",
+      "185": "uQ==",
+      "186": "ug==",
+      "187": "uw==",
+      "188": "vA==",
+      "189": "vQ==",
+      "190": "vg==",
+      "191": "vw==",
+      "192": "wA==",
+      "193": "wQ==",
+      "194": "wg==",
+      "195": "ww==",
+      "196": "xA==",
+      "197": "xQ==",
+      "198": "xg==",
+      "199": "xw==",
+      "200": "yA==",
+      "201": "yQ==",
+      "202": "yg==",
+      "203": "yw==",
+      "204": "zA==",
+      "205": "zQ==",
+      "206": "zg==",
+      "207": "zw==",
+      "208": "0A==",
+      "209": "0Q==",
+      "210": "0g==",
+      "211": "0w==",
+      "212": "1A==",
+      "213": "1Q==",
+      "214": "1g==",
+      "215": "1w==",
+      "216": "2A==",
+      "217": "2Q==",
+      "218": "2g==",
+      "219": "2w==",
+      "220": "3A==",
+      "221": "3Q==",
+      "222": "3g==",
+      "223": "3w==",
+      "224": "4A==",
+      "225": "4Q==",
+      "226": "4g==",
+      "227": "4w==",
+      "228": "5A==",
+      "229": "5Q==",
+      "230": "5g==",
+      "231": "5w==",
+      "232": "6A==",
+      "233": "6Q==",
+      "234": "6g==",
+      "235": "6w==",
+      "236": "7A==",
+      "237": "7Q==",
+      "238": "7g==",
+      "239": "7w==",
+      "240": "8A==",
+      "241": "8Q==",
+      "242": "8g==",
+      "243": "8w==",
+      "244": "9A==",
+      "245": "9Q==",
+      "246": "9g==",
+      "247": "9w==",
+      "248": "+A==",
+      "249": "+Q==",
+      "250": "+g==",
+      "251": "+w==",
+      "252": "/A==",
+      "253": "/Q==",
+      "254": "/g==",
+      "255": "/w==",
+      "262": "ICI=",
+      "263": "Ijo=",
+      "264": "LCAi",
+      "265": "IjogIg==",
+      "266": "aW4=",
+      "267": "dGU=",
+      "268": "IiwgIg==",
+      "269": "YWw=",
+      "270": "Ijog",
+      "271": "b3I=",
+      "272": "ICA=",
+      "273": "c2U=",
+      "274": "bGU=",
+      "275": "ZGU=",
+      "276": "cHI=",
+      "277": "cmU=",
+      "278": "Y2U=",
+      "279": "eyI=",
+      "280": "YSA=",
+      "281": "aW5l",
+      "282": "dGk=",
+      "283": "YW0=",
+      "284": "bGluZQ==",
+      "285": "IjogeyI=",
+      "286": "XCI=",
+      "287": "XG4=",
+      "288": "b24=",
+      "289": "cnI=",
+      "290": "cnJvcg==",
+      "291": "ZXg=",
+      "292": "YWxf",
+      "293": "c3Q=",
+      "294": "b3U=",
+      "295": "fSwgIg==",
+      "296": "cHJv",
+      "297": "YXQ=",
+      "298": "ZGk=",
+      "299": "Zmk=",
+      "300": "dCg=",
+      "301": "dWw=",
+      "302": "ICAgIA==",
+      "303": "b3Q=",
+      "304": "RXJyb3I=",
+      "305": "ZF8=",
+      "306": "c2k=",
+      "307": "In0sICI=",
+      "308": "LnA=",
+      "309": "b2Rl",
+      "310": "aW50KA==",
+      "311": "LnB5",
+      "312": "bG8=",
+      "313": "LCA=",
+      "314": "Z2U=",
+      "315": "dmU=",
+      "316": "dmk=",
+      "317": "YXRl",
+      "318": "ZWM=",
+      "319": "cG9y",
+      "320": "cHJpbnQo",
+      "321": "YW4=",
+      "322": "dGVy",
+      "323": "YWxzZQ==",
+      "324": "OiA=",
+      "325": "aWQ="
+    },
+    "sha256": "07ac51f0f9eb003e09df61bfe02c1160b1a9653fd6c6260314b787cf73a1cbc2"
+  },
+  "splits": {
+    "train": [
+      "case-001",
+      "case-002",
+      "case-004",
+      "case-005",
+      "case-006",
+      "case-007",
+      "case-008",
+      "case-009",
+      "case-010",
+      "case-011"
+    ],
+    "dev": [
+      "case-003",
+      "case-012",
+      "case-013",
+      "case-014"
+    ],
+    "holdout": [
+      "holdout-001",
+      "holdout-002",
+      "holdout-003",
+      "holdout-004",
+      "holdout-005",
+      "holdout-006",
+      "holdout-007",
+      "holdout-008",
+      "holdout-009",
+      "holdout-010",
+      "holdout-011",
+      "holdout-012",
+      "holdout-013",
+      "holdout-014",
+      "holdout-015",
+      "holdout-016",
+      "holdout-017",
+      "holdout-018",
+      "holdout-019",
+      "holdout-020",
+      "holdout-021",
+      "holdout-022",
+      "holdout-023",
+      "holdout-024",
+      "holdout-025",
+      "holdout-026",
+      "holdout-027",
+      "holdout-028",
+      "holdout-029",
+      "holdout-030"
+    ]
+  },
+  "manifests": {
+    "train": {
+      "split": "train",
+      "seed": 20260916,
+      "count": 10,
+      "grouping_rule": "program + template_id",
+      "excludes_ollama": true,
+      "cases": [
+        {
+          "id": "case-001",
+          "path": "cases/case_001_divide_zero.json",
+          "sha256": "1ac0e341607844f7d3cedfd52c70e537069ca0210dafb8c55056ce99eb5b1bf3",
+          "program": "calculator_divide",
+          "template_id": "calculator_divide_v1",
+          "family": "zero_division"
+        },
+        {
+          "id": "case-002",
+          "path": "cases/case_002_undefined_name.json",
+          "sha256": "a6fd0a7e21d7bbf2940335171ddf9d6f7ddc8f718a7231a364314799ab03f398",
+          "program": "report_total",
+          "template_id": "report_total_v1",
+          "family": "undefined_name"
+        },
+        {
+          "id": "case-004",
+          "path": "cases/case_004_empty_list.json",
+          "sha256": "c52a04ff57c3373c1a2f529df7b6e93130c61d2f72aac87e541ec14b84df31be",
+          "program": "first_item",
+          "template_id": "first_item_v1",
+          "family": "index_error"
+        },
+        {
+          "id": "case-005",
+          "path": "cases/case_005_missing_key.json",
+          "sha256": "5ab0371c7c7265e4e8c7611db4f97e6b80caab834cff080be4d8dd3c699979e4",
+          "program": "user_city",
+          "template_id": "user_city_v1",
+          "family": "key_error"
+        },
+        {
+          "id": "case-006",
+          "path": "cases/case_006_bad_attribute.json",
+          "sha256": "62953776d2d81de84aa15b6bc73d140488430550ef6f2aed73adcb996f941904",
+          "program": "normalize_title",
+          "template_id": "normalize_title_v1",
+          "family": "attribute_error"
+        },
+        {
+          "id": "case-007",
+          "path": "cases/case_007_missing_file.json",
+          "sha256": "9dcd93fb69df7f2d6aedc9eeec15c862260b7ed3922a6e885a1faf89cb41cdd0",
+          "program": "load_settings",
+          "template_id": "load_settings_v1",
+          "family": "file_not_found"
+        },
+        {
+          "id": "case-008",
+          "path": "cases/case_008_invalid_integer.json",
+          "sha256": "810ca4a871abcda30a28f2ad2f624194601c43a1d78ffdd6d6ee26268c8c2ac5",
+          "program": "parse_age",
+          "template_id": "parse_age_v1",
+          "family": "value_error"
+        },
+        {
+          "id": "case-009",
+          "path": "cases/case_009_unbound_total.json",
+          "sha256": "2438fd45922711597813971d7bd90edbadc1d43da7fab8398c5bc654639ac2cc",
+          "program": "optional_total",
+          "template_id": "optional_total_v1",
+          "family": "unbound_local"
+        },
+        {
+          "id": "case-010",
+          "path": "cases/case_010_missing_module.json",
+          "sha256": "08b1665481af854e57ba83d7bc8479e99d13ccca67317f99927e33795d759b72",
+          "program": "optional_export",
+          "template_id": "optional_export_v1",
+          "family": "module_not_found"
+        },
+        {
+          "id": "case-011",
+          "path": "cases/case_011_syntax_colon.json",
+          "sha256": "47dd7f81a1ec20f8e8c07a9c579ad4bea9c8d4c72401849fd6794e6e7d7ce579",
+          "program": "positive_check",
+          "template_id": "positive_check_v1",
+          "family": "syntax_error"
+        }
+      ]
+    },
+    "dev": {
+      "split": "dev",
+      "seed": 20260916,
+      "count": 4,
+      "grouping_rule": "program + template_id",
+      "excludes_ollama": true,
+      "cases": [
+        {
+          "id": "case-003",
+          "path": "cases/case_003_incompatible_type.json",
+          "sha256": "729407f346585933e0d3d26eeb2048e343593c79cb53637917d3293b30e44924",
+          "program": "format_count",
+          "template_id": "format_count_v1",
+          "family": "incompatible_type"
+        },
+        {
+          "id": "case-012",
+          "path": "cases/case_012_recursion.json",
+          "sha256": "3baba2a39263bf8ecf207f9db8ef799ee2c1237938537ba4b9459d440275241b",
+          "program": "countdown",
+          "template_id": "countdown_v1",
+          "family": "recursion_error"
+        },
+        {
+          "id": "case-013",
+          "path": "cases/case_013_last_score.json",
+          "sha256": "95952b22e6bf5e6ca97e9ad9c5e2be727de4574fa9cbf9e6bfbbb4d13495a982",
+          "program": "last_score",
+          "template_id": "last_score_v1",
+          "family": "index_error"
+        },
+        {
+          "id": "case-014",
+          "path": "cases/case_014_config_key.json",
+          "sha256": "b24b870364ab2571de83902572bc939e13e909f0503e742e44b2f6d2021648d9",
+          "program": "config_timeout",
+          "template_id": "config_timeout_v1",
+          "family": "key_error"
+        }
+      ]
+    },
+    "holdout": {
+      "split": "holdout",
+      "seed": 20261002,
+      "count": 30,
+      "grouping_rule": "program + template_id",
+      "excludes_ollama": true,
+      "frozen_for_tuning": true,
+      "available_after": "2026-10-02",
+      "target": {
+        "minimum_cases": 30,
+        "minimum_families": 5,
+        "minimum_programs": 10,
+        "status": "frozen_populated"
+      },
+      "cases": [
+        {
+          "id": "holdout-001",
+          "path": "cases/holdout_001.json",
+          "sha256": "c2b09fa3cd960e5792cdf45c7c175fb280931d87d70ff19cef8414f1977e4bac",
+          "program": "rate_report",
+          "template_id": "rate_report_v1",
+          "family": "zero_division"
+        },
+        {
+          "id": "holdout-002",
+          "path": "cases/holdout_002.json",
+          "sha256": "5852d6d7502194cfa342557ceb4ed5f093779f661d7dc420cfed926b312569e8",
+          "program": "rate_report",
+          "template_id": "rate_report_v1",
+          "family": "zero_division"
+        },
+        {
+          "id": "holdout-003",
+          "path": "cases/holdout_003.json",
+          "sha256": "0262c816314071b6cf57e06da5e3833753c9ce363cc4538d78d2ebe5611a91f5",
+          "program": "rate_report",
+          "template_id": "rate_report_v1",
+          "family": "zero_division"
+        },
+        {
+          "id": "holdout-004",
+          "path": "cases/holdout_004.json",
+          "sha256": "5beb70fd4029508451ffe20e508bebffc282a5b0d6fca89ef8eb8888a9d6e7eb",
+          "program": "invoice_summary",
+          "template_id": "invoice_summary_v1",
+          "family": "undefined_name"
+        },
+        {
+          "id": "holdout-005",
+          "path": "cases/holdout_005.json",
+          "sha256": "3ee0d1c9dab6d3efd335e5dc0e573effdaaffb244ca8ee010201a423f4a8f8e7",
+          "program": "invoice_summary",
+          "template_id": "invoice_summary_v1",
+          "family": "undefined_name"
+        },
+        {
+          "id": "holdout-006",
+          "path": "cases/holdout_006.json",
+          "sha256": "441d63672d5301ce36cda3727e06f70fa7c0f3d10b5c4c76ace3f476977ac9d5",
+          "program": "invoice_summary",
+          "template_id": "invoice_summary_v1",
+          "family": "undefined_name"
+        },
+        {
+          "id": "holdout-007",
+          "path": "cases/holdout_007.json",
+          "sha256": "4824c78c72afa64154205dea72c1f1a5dbb278dccefc7231ff1cc5d71ad1d527",
+          "program": "shipment_label",
+          "template_id": "shipment_label_v1",
+          "family": "incompatible_type"
+        },
+        {
+          "id": "holdout-008",
+          "path": "cases/holdout_008.json",
+          "sha256": "233a8375a00b6bcdb33cebe0e357de16639dcb4ad17a3421e37572f36b4ca1b6",
+          "program": "shipment_label",
+          "template_id": "shipment_label_v1",
+          "family": "incompatible_type"
+        },
+        {
+          "id": "holdout-009",
+          "path": "cases/holdout_009.json",
+          "sha256": "18c185f04536221136a9e27bababaa151712face29e1ef06c1cdc7c2e124fbf5",
+          "program": "shipment_label",
+          "template_id": "shipment_label_v1",
+          "family": "incompatible_type"
+        },
+        {
+          "id": "holdout-010",
+          "path": "cases/holdout_010.json",
+          "sha256": "ca158b827731e597f2459e1223f9d8f545dfbd186538e903c6a52c8815fcd974",
+          "program": "queue_reader",
+          "template_id": "queue_reader_v1",
+          "family": "index_error"
+        },
+        {
+          "id": "holdout-011",
+          "path": "cases/holdout_011.json",
+          "sha256": "913bf6e0d25fd185021d5ec92e54f3803f253879c2282ba412e76c51a6bf9972",
+          "program": "queue_reader",
+          "template_id": "queue_reader_v1",
+          "family": "index_error"
+        },
+        {
+          "id": "holdout-012",
+          "path": "cases/holdout_012.json",
+          "sha256": "4c3385590ef8503a31f13f1c961ee500ceb41326c890649075198c116fc636a8",
+          "program": "queue_reader",
+          "template_id": "queue_reader_v1",
+          "family": "index_error"
+        },
+        {
+          "id": "holdout-013",
+          "path": "cases/holdout_013.json",
+          "sha256": "af86365b0107f70194923aedca623ccb97d330b1e5f899d610f0712a6aeb3b28",
+          "program": "retry_settings",
+          "template_id": "retry_settings_v1",
+          "family": "key_error"
+        },
+        {
+          "id": "holdout-014",
+          "path": "cases/holdout_014.json",
+          "sha256": "49097216e7cfc0a514e6981bca43fd56cdf7c85e0274ddd9c4888dee117957e4",
+          "program": "retry_settings",
+          "template_id": "retry_settings_v1",
+          "family": "key_error"
+        },
+        {
+          "id": "holdout-015",
+          "path": "cases/holdout_015.json",
+          "sha256": "3087a4ad5256aa92aa3c89187ce04bdd04b5efedf7e0a6b9ce4f3c20ce6a563a",
+          "program": "retry_settings",
+          "template_id": "retry_settings_v1",
+          "family": "key_error"
+        },
+        {
+          "id": "holdout-016",
+          "path": "cases/holdout_016.json",
+          "sha256": "10dbe977339a3358d28f4d47faad3664ff45b7e68dc32f91a3db25628da23c34",
+          "program": "port_parser",
+          "template_id": "port_parser_v1",
+          "family": "value_error"
+        },
+        {
+          "id": "holdout-017",
+          "path": "cases/holdout_017.json",
+          "sha256": "793de5d907987c1c4d838472b6ed197333219ac777a61ed0f8e58a9e13fbab8d",
+          "program": "port_parser",
+          "template_id": "port_parser_v1",
+          "family": "value_error"
+        },
+        {
+          "id": "holdout-018",
+          "path": "cases/holdout_018.json",
+          "sha256": "f0b7e5aed27d930d77509259c93e1d4f0eb3db0035e0a8e658891b9fcd0324b7",
+          "program": "port_parser",
+          "template_id": "port_parser_v1",
+          "family": "value_error"
+        },
+        {
+          "id": "holdout-019",
+          "path": "cases/holdout_019.json",
+          "sha256": "c1a65f82872356adf30f4617be06d7766ccc75d8f4e4197d984ff73a6d3cacca",
+          "program": "profile_name",
+          "template_id": "profile_name_v1",
+          "family": "attribute_error"
+        },
+        {
+          "id": "holdout-020",
+          "path": "cases/holdout_020.json",
+          "sha256": "b7ca7098fe91335ef59ee9ee8fdfed6e928374c427ff85ed9badeea5d3d71d0e",
+          "program": "profile_name",
+          "template_id": "profile_name_v1",
+          "family": "attribute_error"
+        },
+        {
+          "id": "holdout-021",
+          "path": "cases/holdout_021.json",
+          "sha256": "545430fead4b497cf6ab8f0a19318d4072672ee1f77bd209e68215edd349e9d9",
+          "program": "profile_name",
+          "template_id": "profile_name_v1",
+          "family": "attribute_error"
+        },
+        {
+          "id": "holdout-022",
+          "path": "cases/holdout_022.json",
+          "sha256": "ba32080c29f08fd9c096e2b642f7b005b1cc5b09f24cacf298f60c0c95f05f61",
+          "program": "banner_loader",
+          "template_id": "banner_loader_v1",
+          "family": "file_not_found"
+        },
+        {
+          "id": "holdout-023",
+          "path": "cases/holdout_023.json",
+          "sha256": "03236a2a5b33ca92839132f5d4ef0613178f4742bebe8743d60775725f041d73",
+          "program": "banner_loader",
+          "template_id": "banner_loader_v1",
+          "family": "file_not_found"
+        },
+        {
+          "id": "holdout-024",
+          "path": "cases/holdout_024.json",
+          "sha256": "8a7b969501bada9ac342a94e092f9a4b0f4a5e429442fe536659fa89b9a2a098",
+          "program": "banner_loader",
+          "template_id": "banner_loader_v1",
+          "family": "file_not_found"
+        },
+        {
+          "id": "holdout-025",
+          "path": "cases/holdout_025.json",
+          "sha256": "1b0388a40fdb501f938408443a2bf10b0ae38a322bcbe141d6fbb27cc506c001",
+          "program": "discount_picker",
+          "template_id": "discount_picker_v1",
+          "family": "unbound_local"
+        },
+        {
+          "id": "holdout-026",
+          "path": "cases/holdout_026.json",
+          "sha256": "0ac606a9f27d4b2c382c76d3ee7ea365b33170de0b4ff04ece6344632b479520",
+          "program": "discount_picker",
+          "template_id": "discount_picker_v1",
+          "family": "unbound_local"
+        },
+        {
+          "id": "holdout-027",
+          "path": "cases/holdout_027.json",
+          "sha256": "7c6470f5b62f037b3c025002e96cc35bf1847d768c9b04be52f7ec0a922a9112",
+          "program": "discount_picker",
+          "template_id": "discount_picker_v1",
+          "family": "unbound_local"
+        },
+        {
+          "id": "holdout-028",
+          "path": "cases/holdout_028.json",
+          "sha256": "8cc65862279c546201aaf51ad4f60a91fb0e628a017c32032215f3794660534e",
+          "program": "tree_walk",
+          "template_id": "tree_walk_v1",
+          "family": "recursion_error"
+        },
+        {
+          "id": "holdout-029",
+          "path": "cases/holdout_029.json",
+          "sha256": "ecd665007af2ddbe307278a932da48c283b7001b3b8e82b666ad7501abdad80c",
+          "program": "tree_walk",
+          "template_id": "tree_walk_v1",
+          "family": "recursion_error"
+        },
+        {
+          "id": "holdout-030",
+          "path": "cases/holdout_030.json",
+          "sha256": "133423b66aef0a60ff4186f3446d2f5ad7bb44953c758e8dae931db2020c71d7",
+          "program": "tree_walk",
+          "template_id": "tree_walk_v1",
+          "family": "recursion_error"
+        }
+      ]
+    }
+  },
+  "cases": {
+    "case-001": {
+      "id": "case-001",
+      "program": "calculator_divide",
+      "template_id": "calculator_divide_v1",
+      "family": "zero_division",
+      "initial_code": "def divide(a, b):\n    return a / b\n\nprint(divide(3, 0))\n",
+      "error": "ZeroDivisionError: division by zero",
+      "log": "File \"calculator_divide.py\", line 2, in divide\n    return a / b\nZeroDivisionError: division by zero",
+      "diagnosis": {
+        "type": "ZeroDivisionError",
+        "location": {
+          "file": "calculator_divide.py",
+          "line": 2
+        },
+        "evidence": "Numitorul b este 0 la operatia a / b."
+      },
+      "patch": {
+        "file": "calculator_divide.py",
+        "line": 2,
+        "old_line": "return a / b",
+        "new_lines": [
+          "    if b == 0:",
+          "        return None",
+          "    return a / b"
+        ]
+      },
+      "verdict": {
+        "accepted": true,
+        "tests": [
+          "divide(10, 2) == 5",
+          "divide(3, 0) is None"
+        ]
+      },
+      "provenance": {
+        "source": "manual_project_example",
+        "created_by": "AI-assisted synthetic data",
+        "ollama_used": false,
+        "external_model_output": false
+      }
+    },
+    "case-002": {
+      "id": "case-002",
+      "program": "report_total",
+      "template_id": "report_total_v1",
+      "family": "undefined_name",
+      "initial_code": "total = 3\nprint(result)\n",
+      "error": "NameError: name 'result' is not defined",
+      "log": "File \"report_total.py\", line 2, in <module>\n    print(result)\nNameError: name 'result' is not defined",
+      "diagnosis": {
+        "type": "NameError",
+        "location": {
+          "file": "report_total.py",
+          "line": 2
+        },
+        "evidence": "Codul defineste total, dar incearca sa afiseze result."
+      },
+      "patch": {
+        "file": "report_total.py",
+        "line": 2,
+        "old_line": "print(result)",
+        "new_lines": [
+          "print(total)"
+        ]
+      },
+      "verdict": {
+        "accepted": true,
+        "tests": [
+          "programul afiseaza 3",
+          "procesul se termina cu cod 0"
+        ]
+      },
+      "provenance": {
+        "source": "manual_project_example",
+        "created_by": "AI-assisted synthetic data",
+        "ollama_used": false,
+        "external_model_output": false
+      }
+    },
+    "case-004": {
+      "id": "case-004",
+      "program": "first_item",
+      "template_id": "first_item_v1",
+      "family": "index_error",
+      "initial_code": "items = []\nprint(items[0])\n",
+      "error": "IndexError: list index out of range",
+      "log": "File \"first_item.py\", line 2, in <module>\n    print(items[0])\nIndexError: list index out of range",
+      "diagnosis": {
+        "type": "IndexError",
+        "location": {
+          "file": "first_item.py",
+          "line": 2
+        },
+        "evidence": "Lista items este goala, deci indexul 0 nu exista."
+      },
+      "patch": {
+        "file": "first_item.py",
+        "line": 2,
+        "old_line": "print(items[0])",
+        "new_lines": [
+          "print(items[0] if items else None)"
+        ]
+      },
+      "verdict": {
+        "accepted": true,
+        "tests": [
+          "lista goala afiseaza None",
+          "lista populata afiseaza primul element"
+        ]
+      },
+      "provenance": {
+        "source": "manual_project_example",
+        "created_by": "AI-assisted synthetic data",
+        "ollama_used": false,
+        "external_model_output": false
+      }
+    },
+    "case-005": {
+      "id": "case-005",
+      "program": "user_city",
+      "template_id": "user_city_v1",
+      "family": "key_error",
+      "initial_code": "user = {\"name\": \"Ana\"}\nprint(user[\"city\"])\n",
+      "error": "KeyError: 'city'",
+      "log": "File \"user_city.py\", line 2, in <module>\n    print(user[\"city\"])\nKeyError: 'city'",
+      "diagnosis": {
+        "type": "KeyError",
+        "location": {
+          "file": "user_city.py",
+          "line": 2
+        },
+        "evidence": "Dictionarul user nu contine cheia city."
+      },
+      "patch": {
+        "file": "user_city.py",
+        "line": 2,
+        "old_line": "print(user[\"city\"])",
+        "new_lines": [
+          "print(user.get(\"city\", \"necunoscut\"))"
+        ]
+      },
+      "verdict": {
+        "accepted": true,
+        "tests": [
+          "cheia lipsa afiseaza necunoscut",
+          "cheia existenta este pastrata"
+        ]
+      },
+      "provenance": {
+        "source": "manual_project_example",
+        "created_by": "AI-assisted synthetic data",
+        "ollama_used": false,
+        "external_model_output": false
+      }
+    },
+    "case-006": {
+      "id": "case-006",
+      "program": "normalize_title",
+      "template_id": "normalize_title_v1",
+      "family": "attribute_error",
+      "initial_code": "title = None\nprint(title.strip())\n",
+      "error": "AttributeError: 'NoneType' object has no attribute 'strip'",
+      "log": "File \"normalize_title.py\", line 2, in <module>\n    print(title.strip())\nAttributeError: 'NoneType' object has no attribute 'strip'",
+      "diagnosis": {
+        "type": "AttributeError",
+        "location": {
+          "file": "normalize_title.py",
+          "line": 2
+        },
+        "evidence": "Valoarea title este None, iar None nu are metoda strip."
+      },
+      "patch": {
+        "file": "normalize_title.py",
+        "line": 2,
+        "old_line": "print(title.strip())",
+        "new_lines": [
+          "print(title.strip() if title is not None else \"\")"
+        ]
+      },
+      "verdict": {
+        "accepted": true,
+        "tests": [
+          "None produce sir gol",
+          "textul este curatat"
+        ]
+      },
+      "provenance": {
+        "source": "manual_project_example",
+        "created_by": "AI-assisted synthetic data",
+        "ollama_used": false,
+        "external_model_output": false
+      }
+    },
+    "case-007": {
+      "id": "case-007",
+      "program": "load_settings",
+      "template_id": "load_settings_v1",
+      "family": "file_not_found",
+      "initial_code": "from pathlib import Path\nprint(Path(\"settings.txt\").read_text())\n",
+      "error": "FileNotFoundError: settings.txt",
+      "log": "File \"load_settings.py\", line 2, in <module>\n    print(Path(\"settings.txt\").read_text())\nFileNotFoundError: settings.txt",
+      "diagnosis": {
+        "type": "FileNotFoundError",
+        "location": {
+          "file": "load_settings.py",
+          "line": 2
+        },
+        "evidence": "Fisierul settings.txt este citit fara sa existe."
+      },
+      "patch": {
+        "file": "load_settings.py",
+        "line": 2,
+        "old_line": "print(Path(\"settings.txt\").read_text())",
+        "new_lines": [
+          "path = Path(\"settings.txt\")",
+          "print(path.read_text() if path.exists() else \"\")"
+        ]
+      },
+      "verdict": {
+        "accepted": true,
+        "tests": [
+          "fisierul lipsa produce sir gol",
+          "fisierul existent este citit"
+        ]
+      },
+      "provenance": {
+        "source": "manual_project_example",
+        "created_by": "AI-assisted synthetic data",
+        "ollama_used": false,
+        "external_model_output": false
+      }
+    },
+    "case-008": {
+      "id": "case-008",
+      "program": "parse_age",
+      "template_id": "parse_age_v1",
+      "family": "value_error",
+      "initial_code": "age_text = \"douazeci\"\nage = int(age_text)\n",
+      "error": "ValueError: invalid literal for int() with base 10: 'douazeci'",
+      "log": "File \"parse_age.py\", line 2, in <module>\n    age = int(age_text)\nValueError: invalid literal for int() with base 10: 'douazeci'",
+      "diagnosis": {
+        "type": "ValueError",
+        "location": {
+          "file": "parse_age.py",
+          "line": 2
+        },
+        "evidence": "Textul douazeci nu reprezinta un numar intreg acceptat de int."
+      },
+      "patch": {
+        "file": "parse_age.py",
+        "line": 2,
+        "old_line": "age = int(age_text)",
+        "new_lines": [
+          "age = int(age_text) if age_text.isdigit() else None"
+        ]
+      },
+      "verdict": {
+        "accepted": true,
+        "tests": [
+          "textul nenumeric produce None",
+          "textul 20 produce numarul 20"
+        ]
+      },
+      "provenance": {
+        "source": "manual_project_example",
+        "created_by": "AI-assisted synthetic data",
+        "ollama_used": false,
+        "external_model_output": false
+      }
+    },
+    "case-009": {
+      "id": "case-009",
+      "program": "optional_total",
+      "template_id": "optional_total_v1",
+      "family": "unbound_local",
+      "initial_code": "def calculate(enabled):\n    if enabled:\n        total = 10\n    return total\n\nprint(calculate(False))\n",
+      "error": "UnboundLocalError: local variable 'total' referenced before assignment",
+      "log": "File \"optional_total.py\", line 4, in calculate\n    return total\nUnboundLocalError: local variable 'total' referenced before assignment",
+      "diagnosis": {
+        "type": "UnboundLocalError",
+        "location": {
+          "file": "optional_total.py",
+          "line": 4
+        },
+        "evidence": "Cand enabled este False, variabila total nu este definita inainte de return."
+      },
+      "patch": {
+        "file": "optional_total.py",
+        "line": 2,
+        "old_line": "if enabled:",
+        "new_lines": [
+          "    total = 0",
+          "    if enabled:"
+        ]
+      },
+      "verdict": {
+        "accepted": true,
+        "tests": [
+          "False produce 0",
+          "True produce 10"
+        ]
+      },
+      "provenance": {
+        "source": "manual_project_example",
+        "created_by": "AI-assisted synthetic data",
+        "ollama_used": false,
+        "external_model_output": false
+      }
+    },
+    "case-010": {
+      "id": "case-010",
+      "program": "optional_export",
+      "template_id": "optional_export_v1",
+      "family": "module_not_found",
+      "initial_code": "import ghost_exporter\nprint(ghost_exporter.version)\n",
+      "error": "ModuleNotFoundError: No module named 'ghost_exporter'",
+      "log": "File \"optional_export.py\", line 1, in <module>\n    import ghost_exporter\nModuleNotFoundError: No module named 'ghost_exporter'",
+      "diagnosis": {
+        "type": "ModuleNotFoundError",
+        "location": {
+          "file": "optional_export.py",
+          "line": 1
+        },
+        "evidence": "Modulul ghost_exporter nu este instalat sau disponibil pe calea Python."
+      },
+      "patch": {
+        "file": "optional_export.py",
+        "line": 1,
+        "old_line": "import ghost_exporter",
+        "new_lines": [
+          "try:",
+          "    import ghost_exporter",
+          "except ModuleNotFoundError:",
+          "    ghost_exporter = None"
+        ]
+      },
+      "verdict": {
+        "accepted": true,
+        "tests": [
+          "lipsa dependentei este tratata",
+          "modulul disponibil poate fi folosit"
+        ]
+      },
+      "provenance": {
+        "source": "manual_project_example",
+        "created_by": "AI-assisted synthetic data",
+        "ollama_used": false,
+        "external_model_output": false
+      }
+    },
+    "case-011": {
+      "id": "case-011",
+      "program": "positive_check",
+      "template_id": "positive_check_v1",
+      "family": "syntax_error",
+      "initial_code": "value = 3\nif value > 0\n    print(\"positive\")\n",
+      "error": "SyntaxError: expected ':'",
+      "log": "File \"positive_check.py\", line 2\n    if value > 0\n                ^\nSyntaxError: expected ':'",
+      "diagnosis": {
+        "type": "SyntaxError",
+        "location": {
+          "file": "positive_check.py",
+          "line": 2
+        },
+        "evidence": "Instructiunea if nu are caracterul doua puncte la final."
+      },
+      "patch": {
+        "file": "positive_check.py",
+        "line": 2,
+        "old_line": "if value > 0",
+        "new_lines": [
+          "if value > 0:"
+        ]
+      },
+      "verdict": {
+        "accepted": true,
+        "tests": [
+          "codul poate fi compilat",
+          "valoarea pozitiva este afisata"
+        ]
+      },
+      "provenance": {
+        "source": "manual_project_example",
+        "created_by": "AI-assisted synthetic data",
+        "ollama_used": false,
+        "external_model_output": false
+      }
+    },
+    "case-003": {
+      "id": "case-003",
+      "program": "format_count",
+      "template_id": "format_count_v1",
+      "family": "incompatible_type",
+      "initial_code": "count = 3\nprint(\"count: \" + count)\n",
+      "error": "TypeError: can only concatenate str (not 'int') to str",
+      "log": "File \"format_count.py\", line 2, in <module>\n    print(\"count: \" + count)\nTypeError: can only concatenate str (not 'int') to str",
+      "diagnosis": {
+        "type": "TypeError",
+        "location": {
+          "file": "format_count.py",
+          "line": 2
+        },
+        "evidence": "Operatorul + primeste str in stanga si int in dreapta."
+      },
+      "patch": {
+        "file": "format_count.py",
+        "line": 2,
+        "old_line": "print(\"count: \" + count)",
+        "new_lines": [
+          "print(f\"count: {count}\")"
+        ]
+      },
+      "verdict": {
+        "accepted": true,
+        "tests": [
+          "programul afiseaza count: 3",
+          "procesul se termina cu cod 0"
+        ]
+      },
+      "provenance": {
+        "source": "manual_project_example",
+        "created_by": "AI-assisted synthetic data",
+        "ollama_used": false,
+        "external_model_output": false
+      }
+    },
+    "case-012": {
+      "id": "case-012",
+      "program": "countdown",
+      "template_id": "countdown_v1",
+      "family": "recursion_error",
+      "initial_code": "def countdown(n):\n    return countdown(n + 1)\n\ncountdown(3)\n",
+      "error": "RecursionError: maximum recursion depth exceeded",
+      "log": "File \"countdown.py\", line 2, in countdown\n    return countdown(n + 1)\nRecursionError: maximum recursion depth exceeded",
+      "diagnosis": {
+        "type": "RecursionError",
+        "location": {
+          "file": "countdown.py",
+          "line": 2
+        },
+        "evidence": "Functia se apeleaza cu n + 1 si nu are caz de oprire."
+      },
+      "patch": {
+        "file": "countdown.py",
+        "line": 2,
+        "old_line": "return countdown(n + 1)",
+        "new_lines": [
+          "    if n <= 0:",
+          "        return 0",
+          "    return countdown(n - 1)"
+        ]
+      },
+      "verdict": {
+        "accepted": true,
+        "tests": [
+          "countdown(3) se opreste",
+          "countdown(0) returneaza 0"
+        ]
+      },
+      "provenance": {
+        "source": "manual_project_example",
+        "created_by": "AI-assisted synthetic data",
+        "ollama_used": false,
+        "external_model_output": false
+      }
+    },
+    "case-013": {
+      "id": "case-013",
+      "program": "last_score",
+      "template_id": "last_score_v1",
+      "family": "index_error",
+      "initial_code": "scores = []\nlatest = scores[-1]\nprint(latest)\n",
+      "error": "IndexError: list index out of range",
+      "log": "File \"last_score.py\", line 2, in <module>\n    latest = scores[-1]\nIndexError: list index out of range",
+      "diagnosis": {
+        "type": "IndexError",
+        "location": {
+          "file": "last_score.py",
+          "line": 2
+        },
+        "evidence": "Lista scores este goala, deci nu exista ultimul element."
+      },
+      "patch": {
+        "file": "last_score.py",
+        "line": 2,
+        "old_line": "latest = scores[-1]",
+        "new_lines": [
+          "latest = scores[-1] if scores else None"
+        ]
+      },
+      "verdict": {
+        "accepted": true,
+        "tests": [
+          "lista goala produce None",
+          "lista populata produce ultimul scor"
+        ]
+      },
+      "provenance": {
+        "source": "manual_project_example",
+        "created_by": "AI-assisted synthetic data",
+        "ollama_used": false,
+        "external_model_output": false
+      }
+    },
+    "case-014": {
+      "id": "case-014",
+      "program": "config_timeout",
+      "template_id": "config_timeout_v1",
+      "family": "key_error",
+      "initial_code": "config = {\"retries\": 2}\ntimeout = config[\"timeout\"]\nprint(timeout)\n",
+      "error": "KeyError: 'timeout'",
+      "log": "File \"config_timeout.py\", line 2, in <module>\n    timeout = config[\"timeout\"]\nKeyError: 'timeout'",
+      "diagnosis": {
+        "type": "KeyError",
+        "location": {
+          "file": "config_timeout.py",
+          "line": 2
+        },
+        "evidence": "Configuratia nu defineste cheia timeout accesata direct."
+      },
+      "patch": {
+        "file": "config_timeout.py",
+        "line": 2,
+        "old_line": "timeout = config[\"timeout\"]",
+        "new_lines": [
+          "timeout = config.get(\"timeout\", 30)"
+        ]
+      },
+      "verdict": {
+        "accepted": true,
+        "tests": [
+          "lipsa cheii foloseste 30",
+          "valoarea configurata este pastrata"
+        ]
+      },
+      "provenance": {
+        "source": "manual_project_example",
+        "created_by": "AI-assisted synthetic data",
+        "ollama_used": false,
+        "external_model_output": false
+      }
+    },
+    "holdout-001": {
+      "id": "holdout-001",
+      "program": "rate_report",
+      "template_id": "rate_report_v1",
+      "family": "zero_division",
+      "initial_code": "def rate(total, count):\n    divisor = count - 1\n    return total / divisor\n\nprint(rate(10, 1))\n",
+      "error": "ZeroDivisionError: division by zero",
+      "log": "File \"rate_report_1.py\", line 3, in rate\n    return total / divisor\nZeroDivisionError: division by zero",
+      "diagnosis": {
+        "type": "ZeroDivisionError",
+        "location": {
+          "file": "rate_report_1.py",
+          "line": 3
+        },
+        "evidence": "divisor devine 0 inaintea impartirii."
+      },
+      "patch": {
+        "file": "rate_report_1.py",
+        "line": 3,
+        "old_line": "return total / divisor",
+        "new_lines": [
+          "    if divisor == 0:",
+          "        return None",
+          "    return total / divisor"
+        ]
+      },
+      "verdict": {
+        "accepted": true,
+        "tests": [
+          "divisor zero produce None",
+          "divisor nenul produce rata"
+        ]
+      },
+      "provenance": {
+        "source": "manual_project_holdout",
+        "created_by": "AI-assisted synthetic data",
+        "ollama_used": false,
+        "external_model_output": false
+      }
+    },
+    "holdout-002": {
+      "id": "holdout-002",
+      "program": "rate_report",
+      "template_id": "rate_report_v1",
+      "family": "zero_division",
+      "initial_code": "def rate(total, count):\n    divisor = count - 2\n    return total / divisor\n\nprint(rate(20, 2))\n",
+      "error": "ZeroDivisionError: division by zero",
+      "log": "File \"rate_report_2.py\", line 3, in rate\n    return total / divisor\nZeroDivisionError: division by zero",
+      "diagnosis": {
+        "type": "ZeroDivisionError",
+        "location": {
+          "file": "rate_report_2.py",
+          "line": 3
+        },
+        "evidence": "divisor devine 0 inaintea impartirii."
+      },
+      "patch": {
+        "file": "rate_report_2.py",
+        "line": 3,
+        "old_line": "return total / divisor",
+        "new_lines": [
+          "    if divisor == 0:",
+          "        return None",
+          "    return total / divisor"
+        ]
+      },
+      "verdict": {
+        "accepted": true,
+        "tests": [
+          "divisor zero produce None",
+          "divisor nenul produce rata"
+        ]
+      },
+      "provenance": {
+        "source": "manual_project_holdout",
+        "created_by": "AI-assisted synthetic data",
+        "ollama_used": false,
+        "external_model_output": false
+      }
+    },
+    "holdout-003": {
+      "id": "holdout-003",
+      "program": "rate_report",
+      "template_id": "rate_report_v1",
+      "family": "zero_division",
+      "initial_code": "def rate(total, count):\n    divisor = count - 3\n    return total / divisor\n\nprint(rate(30, 3))\n",
+      "error": "ZeroDivisionError: division by zero",
+      "log": "File \"rate_report_3.py\", line 3, in rate\n    return total / divisor\nZeroDivisionError: division by zero",
+      "diagnosis": {
+        "type": "ZeroDivisionError",
+        "location": {
+          "file": "rate_report_3.py",
+          "line": 3
+        },
+        "evidence": "divisor devine 0 inaintea impartirii."
+      },
+      "patch": {
+        "file": "rate_report_3.py",
+        "line": 3,
+        "old_line": "return total / divisor",
+        "new_lines": [
+          "    if divisor == 0:",
+          "        return None",
+          "    return total / divisor"
+        ]
+      },
+      "verdict": {
+        "accepted": true,
+        "tests": [
+          "divisor zero produce None",
+          "divisor nenul produce rata"
+        ]
+      },
+      "provenance": {
+        "source": "manual_project_holdout",
+        "created_by": "AI-assisted synthetic data",
+        "ollama_used": false,
+        "external_model_output": false
+      }
+    },
+    "holdout-004": {
+      "id": "holdout-004",
+      "program": "invoice_summary",
+      "template_id": "invoice_summary_v1",
+      "family": "undefined_name",
+      "initial_code": "subtotal = 11\ntax = 1\nprint(grand_total)\n",
+      "error": "NameError: name 'grand_total' is not defined",
+      "log": "File \"invoice_summary_1.py\", line 3, in <module>\n    print(grand_total)\nNameError: name 'grand_total' is not defined",
+      "diagnosis": {
+        "type": "NameError",
+        "location": {
+          "file": "invoice_summary_1.py",
+          "line": 3
+        },
+        "evidence": "grand_total nu este definit, dar subtotal si tax exista."
+      },
+      "patch": {
+        "file": "invoice_summary_1.py",
+        "line": 3,
+        "old_line": "print(grand_total)",
+        "new_lines": [
+          "print(subtotal + tax)"
+        ]
+      },
+      "verdict": {
+        "accepted": true,
+        "tests": [
+          "totalul include taxa",
+          "programul se termina cu cod 0"
+        ]
+      },
+      "provenance": {
+        "source": "manual_project_holdout",
+        "created_by": "AI-assisted synthetic data",
+        "ollama_used": false,
+        "external_model_output": false
+      }
+    },
+    "holdout-005": {
+      "id": "holdout-005",
+      "program": "invoice_summary",
+      "template_id": "invoice_summary_v1",
+      "family": "undefined_name",
+      "initial_code": "subtotal = 12\ntax = 2\nprint(grand_total)\n",
+      "error": "NameError: name 'grand_total' is not defined",
+      "log": "File \"invoice_summary_2.py\", line 3, in <module>\n    print(grand_total)\nNameError: name 'grand_total' is not defined",
+      "diagnosis": {
+        "type": "NameError",
+        "location": {
+          "file": "invoice_summary_2.py",
+          "line": 3
+        },
+        "evidence": "grand_total nu este definit, dar subtotal si tax exista."
+      },
+      "patch": {
+        "file": "invoice_summary_2.py",
+        "line": 3,
+        "old_line": "print(grand_total)",
+        "new_lines": [
+          "print(subtotal + tax)"
+        ]
+      },
+      "verdict": {
+        "accepted": true,
+        "tests": [
+          "totalul include taxa",
+          "programul se termina cu cod 0"
+        ]
+      },
+      "provenance": {
+        "source": "manual_project_holdout",
+        "created_by": "AI-assisted synthetic data",
+        "ollama_used": false,
+        "external_model_output": false
+      }
+    },
+    "holdout-006": {
+      "id": "holdout-006",
+      "program": "invoice_summary",
+      "template_id": "invoice_summary_v1",
+      "family": "undefined_name",
+      "initial_code": "subtotal = 13\ntax = 3\nprint(grand_total)\n",
+      "error": "NameError: name 'grand_total' is not defined",
+      "log": "File \"invoice_summary_3.py\", line 3, in <module>\n    print(grand_total)\nNameError: name 'grand_total' is not defined",
+      "diagnosis": {
+        "type": "NameError",
+        "location": {
+          "file": "invoice_summary_3.py",
+          "line": 3
+        },
+        "evidence": "grand_total nu este definit, dar subtotal si tax exista."
+      },
+      "patch": {
+        "file": "invoice_summary_3.py",
+        "line": 3,
+        "old_line": "print(grand_total)",
+        "new_lines": [
+          "print(subtotal + tax)"
+        ]
+      },
+      "verdict": {
+        "accepted": true,
+        "tests": [
+          "totalul include taxa",
+          "programul se termina cu cod 0"
+        ]
+      },
+      "provenance": {
+        "source": "manual_project_holdout",
+        "created_by": "AI-assisted synthetic data",
+        "ollama_used": false,
+        "external_model_output": false
+      }
+    },
+    "holdout-007": {
+      "id": "holdout-007",
+      "program": "shipment_label",
+      "template_id": "shipment_label_v1",
+      "family": "incompatible_type",
+      "initial_code": "label = \"boxes: \"\namount = 1\nmessage = label + amount\nprint(message)\n",
+      "error": "TypeError: can only concatenate str (not 'int') to str",
+      "log": "File \"shipment_label_1.py\", line 3, in <module>\n    message = label + amount\nTypeError: can only concatenate str (not 'int') to str",
+      "diagnosis": {
+        "type": "TypeError",
+        "location": {
+          "file": "shipment_label_1.py",
+          "line": 3
+        },
+        "evidence": "label este str, iar amount este int."
+      },
+      "patch": {
+        "file": "shipment_label_1.py",
+        "line": 3,
+        "old_line": "message = label + amount",
+        "new_lines": [
+          "message = f\"{label}{amount}\""
+        ]
+      },
+      "verdict": {
+        "accepted": true,
+        "tests": [
+          "mesajul contine numarul",
+          "nu apare TypeError"
+        ]
+      },
+      "provenance": {
+        "source": "manual_project_holdout",
+        "created_by": "AI-assisted synthetic data",
+        "ollama_used": false,
+        "external_model_output": false
+      }
+    },
+    "holdout-008": {
+      "id": "holdout-008",
+      "program": "shipment_label",
+      "template_id": "shipment_label_v1",
+      "family": "incompatible_type",
+      "initial_code": "label = \"boxes: \"\namount = 2\nmessage = label + amount\nprint(message)\n",
+      "error": "TypeError: can only concatenate str (not 'int') to str",
+      "log": "File \"shipment_label_2.py\", line 3, in <module>\n    message = label + amount\nTypeError: can only concatenate str (not 'int') to str",
+      "diagnosis": {
+        "type": "TypeError",
+        "location": {
+          "file": "shipment_label_2.py",
+          "line": 3
+        },
+        "evidence": "label este str, iar amount este int."
+      },
+      "patch": {
+        "file": "shipment_label_2.py",
+        "line": 3,
+        "old_line": "message = label + amount",
+        "new_lines": [
+          "message = f\"{label}{amount}\""
+        ]
+      },
+      "verdict": {
+        "accepted": true,
+        "tests": [
+          "mesajul contine numarul",
+          "nu apare TypeError"
+        ]
+      },
+      "provenance": {
+        "source": "manual_project_holdout",
+        "created_by": "AI-assisted synthetic data",
+        "ollama_used": false,
+        "external_model_output": false
+      }
+    },
+    "holdout-009": {
+      "id": "holdout-009",
+      "program": "shipment_label",
+      "template_id": "shipment_label_v1",
+      "family": "incompatible_type",
+      "initial_code": "label = \"boxes: \"\namount = 3\nmessage = label + amount\nprint(message)\n",
+      "error": "TypeError: can only concatenate str (not 'int') to str",
+      "log": "File \"shipment_label_3.py\", line 3, in <module>\n    message = label + amount\nTypeError: can only concatenate str (not 'int') to str",
+      "diagnosis": {
+        "type": "TypeError",
+        "location": {
+          "file": "shipment_label_3.py",
+          "line": 3
+        },
+        "evidence": "label este str, iar amount este int."
+      },
+      "patch": {
+        "file": "shipment_label_3.py",
+        "line": 3,
+        "old_line": "message = label + amount",
+        "new_lines": [
+          "message = f\"{label}{amount}\""
+        ]
+      },
+      "verdict": {
+        "accepted": true,
+        "tests": [
+          "mesajul contine numarul",
+          "nu apare TypeError"
+        ]
+      },
+      "provenance": {
+        "source": "manual_project_holdout",
+        "created_by": "AI-assisted synthetic data",
+        "ollama_used": false,
+        "external_model_output": false
+      }
+    },
+    "holdout-010": {
+      "id": "holdout-010",
+      "program": "queue_reader",
+      "template_id": "queue_reader_v1",
+      "family": "index_error",
+      "initial_code": "queue = []\nposition = 0\nprint(queue[position])\n",
+      "error": "IndexError: list index out of range",
+      "log": "File \"queue_reader_1.py\", line 3, in <module>\n    print(queue[position])\nIndexError: list index out of range",
+      "diagnosis": {
+        "type": "IndexError",
+        "location": {
+          "file": "queue_reader_1.py",
+          "line": 3
+        },
+        "evidence": "queue este goala, iar position nu poate fi accesat."
+      },
+      "patch": {
+        "file": "queue_reader_1.py",
+        "line": 3,
+        "old_line": "print(queue[position])",
+        "new_lines": [
+          "print(queue[position] if len(queue) > position else None)"
+        ]
+      },
+      "verdict": {
+        "accepted": true,
+        "tests": [
+          "coada goala produce None",
+          "pozitia existenta este afisata"
+        ]
+      },
+      "provenance": {
+        "source": "manual_project_holdout",
+        "created_by": "AI-assisted synthetic data",
+        "ollama_used": false,
+        "external_model_output": false
+      }
+    },
+    "holdout-011": {
+      "id": "holdout-011",
+      "program": "queue_reader",
+      "template_id": "queue_reader_v1",
+      "family": "index_error",
+      "initial_code": "queue = []\nposition = 1\nprint(queue[position])\n",
+      "error": "IndexError: list index out of range",
+      "log": "File \"queue_reader_2.py\", line 3, in <module>\n    print(queue[position])\nIndexError: list index out of range",
+      "diagnosis": {
+        "type": "IndexError",
+        "location": {
+          "file": "queue_reader_2.py",
+          "line": 3
+        },
+        "evidence": "queue este goala, iar position nu poate fi accesat."
+      },
+      "patch": {
+        "file": "queue_reader_2.py",
+        "line": 3,
+        "old_line": "print(queue[position])",
+        "new_lines": [
+          "print(queue[position] if len(queue) > position else None)"
+        ]
+      },
+      "verdict": {
+        "accepted": true,
+        "tests": [
+          "coada goala produce None",
+          "pozitia existenta este afisata"
+        ]
+      },
+      "provenance": {
+        "source": "manual_project_holdout",
+        "created_by": "AI-assisted synthetic data",
+        "ollama_used": false,
+        "external_model_output": false
+      }
+    },
+    "holdout-012": {
+      "id": "holdout-012",
+      "program": "queue_reader",
+      "template_id": "queue_reader_v1",
+      "family": "index_error",
+      "initial_code": "queue = []\nposition = 2\nprint(queue[position])\n",
+      "error": "IndexError: list index out of range",
+      "log": "File \"queue_reader_3.py\", line 3, in <module>\n    print(queue[position])\nIndexError: list index out of range",
+      "diagnosis": {
+        "type": "IndexError",
+        "location": {
+          "file": "queue_reader_3.py",
+          "line": 3
+        },
+        "evidence": "queue este goala, iar position nu poate fi accesat."
+      },
+      "patch": {
+        "file": "queue_reader_3.py",
+        "line": 3,
+        "old_line": "print(queue[position])",
+        "new_lines": [
+          "print(queue[position] if len(queue) > position else None)"
+        ]
+      },
+      "verdict": {
+        "accepted": true,
+        "tests": [
+          "coada goala produce None",
+          "pozitia existenta este afisata"
+        ]
+      },
+      "provenance": {
+        "source": "manual_project_holdout",
+        "created_by": "AI-assisted synthetic data",
+        "ollama_used": false,
+        "external_model_output": false
+      }
+    },
+    "holdout-013": {
+      "id": "holdout-013",
+      "program": "retry_settings",
+      "template_id": "retry_settings_v1",
+      "family": "key_error",
+      "initial_code": "options = {\"retries\": 1}\ndelay = options[\"delay\"]\nprint(delay)\n",
+      "error": "KeyError: 'delay'",
+      "log": "File \"retry_settings_1.py\", line 2, in <module>\n    delay = options[\"delay\"]\nKeyError: 'delay'",
+      "diagnosis": {
+        "type": "KeyError",
+        "location": {
+          "file": "retry_settings_1.py",
+          "line": 2
+        },
+        "evidence": "options nu contine cheia delay."
+      },
+      "patch": {
+        "file": "retry_settings_1.py",
+        "line": 2,
+        "old_line": "delay = options[\"delay\"]",
+        "new_lines": [
+          "delay = options.get(\"delay\", 5)"
+        ]
+      },
+      "verdict": {
+        "accepted": true,
+        "tests": [
+          "cheia lipsa foloseste 5",
+          "valoarea existenta este pastrata"
+        ]
+      },
+      "provenance": {
+        "source": "manual_project_holdout",
+        "created_by": "AI-assisted synthetic data",
+        "ollama_used": false,
+        "external_model_output": false
+      }
+    },
+    "holdout-014": {
+      "id": "holdout-014",
+      "program": "retry_settings",
+      "template_id": "retry_settings_v1",
+      "family": "key_error",
+      "initial_code": "options = {\"retries\": 2}\ndelay = options[\"delay\"]\nprint(delay)\n",
+      "error": "KeyError: 'delay'",
+      "log": "File \"retry_settings_2.py\", line 2, in <module>\n    delay = options[\"delay\"]\nKeyError: 'delay'",
+      "diagnosis": {
+        "type": "KeyError",
+        "location": {
+          "file": "retry_settings_2.py",
+          "line": 2
+        },
+        "evidence": "options nu contine cheia delay."
+      },
+      "patch": {
+        "file": "retry_settings_2.py",
+        "line": 2,
+        "old_line": "delay = options[\"delay\"]",
+        "new_lines": [
+          "delay = options.get(\"delay\", 5)"
+        ]
+      },
+      "verdict": {
+        "accepted": true,
+        "tests": [
+          "cheia lipsa foloseste 5",
+          "valoarea existenta este pastrata"
+        ]
+      },
+      "provenance": {
+        "source": "manual_project_holdout",
+        "created_by": "AI-assisted synthetic data",
+        "ollama_used": false,
+        "external_model_output": false
+      }
+    },
+    "holdout-015": {
+      "id": "holdout-015",
+      "program": "retry_settings",
+      "template_id": "retry_settings_v1",
+      "family": "key_error",
+      "initial_code": "options = {\"retries\": 3}\ndelay = options[\"delay\"]\nprint(delay)\n",
+      "error": "KeyError: 'delay'",
+      "log": "File \"retry_settings_3.py\", line 2, in <module>\n    delay = options[\"delay\"]\nKeyError: 'delay'",
+      "diagnosis": {
+        "type": "KeyError",
+        "location": {
+          "file": "retry_settings_3.py",
+          "line": 2
+        },
+        "evidence": "options nu contine cheia delay."
+      },
+      "patch": {
+        "file": "retry_settings_3.py",
+        "line": 2,
+        "old_line": "delay = options[\"delay\"]",
+        "new_lines": [
+          "delay = options.get(\"delay\", 5)"
+        ]
+      },
+      "verdict": {
+        "accepted": true,
+        "tests": [
+          "cheia lipsa foloseste 5",
+          "valoarea existenta este pastrata"
+        ]
+      },
+      "provenance": {
+        "source": "manual_project_holdout",
+        "created_by": "AI-assisted synthetic data",
+        "ollama_used": false,
+        "external_model_output": false
+      }
+    },
+    "holdout-016": {
+      "id": "holdout-016",
+      "program": "port_parser",
+      "template_id": "port_parser_v1",
+      "family": "value_error",
+      "initial_code": "port_text = \"80x1\"\nport = int(port_text)\nprint(port)\n",
+      "error": "ValueError: invalid literal for int() with base 10: '80x1'",
+      "log": "File \"port_parser_1.py\", line 2, in <module>\n    port = int(port_text)\nValueError: invalid literal for int() with base 10: '80x1'",
+      "diagnosis": {
+        "type": "ValueError",
+        "location": {
+          "file": "port_parser_1.py",
+          "line": 2
+        },
+        "evidence": "port_text contine caractere care nu sunt cifre."
+      },
+      "patch": {
+        "file": "port_parser_1.py",
+        "line": 2,
+        "old_line": "port = int(port_text)",
+        "new_lines": [
+          "port = int(port_text) if port_text.isdigit() else None"
+        ]
+      },
+      "verdict": {
+        "accepted": true,
+        "tests": [
+          "port invalid produce None",
+          "port numeric este convertit"
+        ]
+      },
+      "provenance": {
+        "source": "manual_project_holdout",
+        "created_by": "AI-assisted synthetic data",
+        "ollama_used": false,
+        "external_model_output": false
+      }
+    },
+    "holdout-017": {
+      "id": "holdout-017",
+      "program": "port_parser",
+      "template_id": "port_parser_v1",
+      "family": "value_error",
+      "initial_code": "port_text = \"80x2\"\nport = int(port_text)\nprint(port)\n",
+      "error": "ValueError: invalid literal for int() with base 10: '80x2'",
+      "log": "File \"port_parser_2.py\", line 2, in <module>\n    port = int(port_text)\nValueError: invalid literal for int() with base 10: '80x2'",
+      "diagnosis": {
+        "type": "ValueError",
+        "location": {
+          "file": "port_parser_2.py",
+          "line": 2
+        },
+        "evidence": "port_text contine caractere care nu sunt cifre."
+      },
+      "patch": {
+        "file": "port_parser_2.py",
+        "line": 2,
+        "old_line": "port = int(port_text)",
+        "new_lines": [
+          "port = int(port_text) if port_text.isdigit() else None"
+        ]
+      },
+      "verdict": {
+        "accepted": true,
+        "tests": [
+          "port invalid produce None",
+          "port numeric este convertit"
+        ]
+      },
+      "provenance": {
+        "source": "manual_project_holdout",
+        "created_by": "AI-assisted synthetic data",
+        "ollama_used": false,
+        "external_model_output": false
+      }
+    },
+    "holdout-018": {
+      "id": "holdout-018",
+      "program": "port_parser",
+      "template_id": "port_parser_v1",
+      "family": "value_error",
+      "initial_code": "port_text = \"80x3\"\nport = int(port_text)\nprint(port)\n",
+      "error": "ValueError: invalid literal for int() with base 10: '80x3'",
+      "log": "File \"port_parser_3.py\", line 2, in <module>\n    port = int(port_text)\nValueError: invalid literal for int() with base 10: '80x3'",
+      "diagnosis": {
+        "type": "ValueError",
+        "location": {
+          "file": "port_parser_3.py",
+          "line": 2
+        },
+        "evidence": "port_text contine caractere care nu sunt cifre."
+      },
+      "patch": {
+        "file": "port_parser_3.py",
+        "line": 2,
+        "old_line": "port = int(port_text)",
+        "new_lines": [
+          "port = int(port_text) if port_text.isdigit() else None"
+        ]
+      },
+      "verdict": {
+        "accepted": true,
+        "tests": [
+          "port invalid produce None",
+          "port numeric este convertit"
+        ]
+      },
+      "provenance": {
+        "source": "manual_project_holdout",
+        "created_by": "AI-assisted synthetic data",
+        "ollama_used": false,
+        "external_model_output": false
+      }
+    },
+    "holdout-019": {
+      "id": "holdout-019",
+      "program": "profile_name",
+      "template_id": "profile_name_v1",
+      "family": "attribute_error",
+      "initial_code": "profile = {\"name\": None}\nname = profile.get(\"name\")\nprint(name.upper())\n",
+      "error": "AttributeError: 'NoneType' object has no attribute 'upper'",
+      "log": "File \"profile_name_1.py\", line 3, in <module>\n    print(name.upper())\nAttributeError: 'NoneType' object has no attribute 'upper'",
+      "diagnosis": {
+        "type": "AttributeError",
+        "location": {
+          "file": "profile_name_1.py",
+          "line": 3
+        },
+        "evidence": "name este None si nu are metoda upper."
+      },
+      "patch": {
+        "file": "profile_name_1.py",
+        "line": 3,
+        "old_line": "print(name.upper())",
+        "new_lines": [
+          "print(name.upper() if name is not None else \"\")"
+        ]
+      },
+      "verdict": {
+        "accepted": true,
+        "tests": [
+          "numele None produce sir gol",
+          "numele text este scris cu majuscule"
+        ]
+      },
+      "provenance": {
+        "source": "manual_project_holdout",
+        "created_by": "AI-assisted synthetic data",
+        "ollama_used": false,
+        "external_model_output": false
+      }
+    },
+    "holdout-020": {
+      "id": "holdout-020",
+      "program": "profile_name",
+      "template_id": "profile_name_v1",
+      "family": "attribute_error",
+      "initial_code": "profile = {\"name\": None}\nname = profile.get(\"name\")\nprint(name.upper())\n",
+      "error": "AttributeError: 'NoneType' object has no attribute 'upper'",
+      "log": "File \"profile_name_2.py\", line 3, in <module>\n    print(name.upper())\nAttributeError: 'NoneType' object has no attribute 'upper'",
+      "diagnosis": {
+        "type": "AttributeError",
+        "location": {
+          "file": "profile_name_2.py",
+          "line": 3
+        },
+        "evidence": "name este None si nu are metoda upper."
+      },
+      "patch": {
+        "file": "profile_name_2.py",
+        "line": 3,
+        "old_line": "print(name.upper())",
+        "new_lines": [
+          "print(name.upper() if name is not None else \"\")"
+        ]
+      },
+      "verdict": {
+        "accepted": true,
+        "tests": [
+          "numele None produce sir gol",
+          "numele text este scris cu majuscule"
+        ]
+      },
+      "provenance": {
+        "source": "manual_project_holdout",
+        "created_by": "AI-assisted synthetic data",
+        "ollama_used": false,
+        "external_model_output": false
+      }
+    },
+    "holdout-021": {
+      "id": "holdout-021",
+      "program": "profile_name",
+      "template_id": "profile_name_v1",
+      "family": "attribute_error",
+      "initial_code": "profile = {\"name\": None}\nname = profile.get(\"name\")\nprint(name.upper())\n",
+      "error": "AttributeError: 'NoneType' object has no attribute 'upper'",
+      "log": "File \"profile_name_3.py\", line 3, in <module>\n    print(name.upper())\nAttributeError: 'NoneType' object has no attribute 'upper'",
+      "diagnosis": {
+        "type": "AttributeError",
+        "location": {
+          "file": "profile_name_3.py",
+          "line": 3
+        },
+        "evidence": "name este None si nu are metoda upper."
+      },
+      "patch": {
+        "file": "profile_name_3.py",
+        "line": 3,
+        "old_line": "print(name.upper())",
+        "new_lines": [
+          "print(name.upper() if name is not None else \"\")"
+        ]
+      },
+      "verdict": {
+        "accepted": true,
+        "tests": [
+          "numele None produce sir gol",
+          "numele text este scris cu majuscule"
+        ]
+      },
+      "provenance": {
+        "source": "manual_project_holdout",
+        "created_by": "AI-assisted synthetic data",
+        "ollama_used": false,
+        "external_model_output": false
+      }
+    },
+    "holdout-022": {
+      "id": "holdout-022",
+      "program": "banner_loader",
+      "template_id": "banner_loader_v1",
+      "family": "file_not_found",
+      "initial_code": "from pathlib import Path\nbanner = Path(\"banner_1.txt\")\nprint(banner.read_text())\n",
+      "error": "FileNotFoundError: banner_1.txt",
+      "log": "File \"banner_loader_1.py\", line 3, in <module>\n    print(banner.read_text())\nFileNotFoundError: banner_1.txt",
+      "diagnosis": {
+        "type": "FileNotFoundError",
+        "location": {
+          "file": "banner_loader_1.py",
+          "line": 3
+        },
+        "evidence": "Fisierul banner_1.txt nu exista."
+      },
+      "patch": {
+        "file": "banner_loader_1.py",
+        "line": 3,
+        "old_line": "print(banner.read_text())",
+        "new_lines": [
+          "print(banner.read_text() if banner.exists() else \"\")"
+        ]
+      },
+      "verdict": {
+        "accepted": true,
+        "tests": [
+          "fisierul lipsa produce sir gol",
+          "fisierul existent este citit"
+        ]
+      },
+      "provenance": {
+        "source": "manual_project_holdout",
+        "created_by": "AI-assisted synthetic data",
+        "ollama_used": false,
+        "external_model_output": false
+      }
+    },
+    "holdout-023": {
+      "id": "holdout-023",
+      "program": "banner_loader",
+      "template_id": "banner_loader_v1",
+      "family": "file_not_found",
+      "initial_code": "from pathlib import Path\nbanner = Path(\"banner_2.txt\")\nprint(banner.read_text())\n",
+      "error": "FileNotFoundError: banner_2.txt",
+      "log": "File \"banner_loader_2.py\", line 3, in <module>\n    print(banner.read_text())\nFileNotFoundError: banner_2.txt",
+      "diagnosis": {
+        "type": "FileNotFoundError",
+        "location": {
+          "file": "banner_loader_2.py",
+          "line": 3
+        },
+        "evidence": "Fisierul banner_2.txt nu exista."
+      },
+      "patch": {
+        "file": "banner_loader_2.py",
+        "line": 3,
+        "old_line": "print(banner.read_text())",
+        "new_lines": [
+          "print(banner.read_text() if banner.exists() else \"\")"
+        ]
+      },
+      "verdict": {
+        "accepted": true,
+        "tests": [
+          "fisierul lipsa produce sir gol",
+          "fisierul existent este citit"
+        ]
+      },
+      "provenance": {
+        "source": "manual_project_holdout",
+        "created_by": "AI-assisted synthetic data",
+        "ollama_used": false,
+        "external_model_output": false
+      }
+    },
+    "holdout-024": {
+      "id": "holdout-024",
+      "program": "banner_loader",
+      "template_id": "banner_loader_v1",
+      "family": "file_not_found",
+      "initial_code": "from pathlib import Path\nbanner = Path(\"banner_3.txt\")\nprint(banner.read_text())\n",
+      "error": "FileNotFoundError: banner_3.txt",
+      "log": "File \"banner_loader_3.py\", line 3, in <module>\n    print(banner.read_text())\nFileNotFoundError: banner_3.txt",
+      "diagnosis": {
+        "type": "FileNotFoundError",
+        "location": {
+          "file": "banner_loader_3.py",
+          "line": 3
+        },
+        "evidence": "Fisierul banner_3.txt nu exista."
+      },
+      "patch": {
+        "file": "banner_loader_3.py",
+        "line": 3,
+        "old_line": "print(banner.read_text())",
+        "new_lines": [
+          "print(banner.read_text() if banner.exists() else \"\")"
+        ]
+      },
+      "verdict": {
+        "accepted": true,
+        "tests": [
+          "fisierul lipsa produce sir gol",
+          "fisierul existent este citit"
+        ]
+      },
+      "provenance": {
+        "source": "manual_project_holdout",
+        "created_by": "AI-assisted synthetic data",
+        "ollama_used": false,
+        "external_model_output": false
+      }
+    },
+    "holdout-025": {
+      "id": "holdout-025",
+      "program": "discount_picker",
+      "template_id": "discount_picker_v1",
+      "family": "unbound_local",
+      "initial_code": "def discount(active):\n    if active:\n        amount = 1\n    return amount\n\nprint(discount(False))\n",
+      "error": "UnboundLocalError: local variable 'amount' referenced before assignment",
+      "log": "File \"discount_picker_1.py\", line 4, in discount\n    return amount\nUnboundLocalError: local variable 'amount' referenced before assignment",
+      "diagnosis": {
+        "type": "UnboundLocalError",
+        "location": {
+          "file": "discount_picker_1.py",
+          "line": 4
+        },
+        "evidence": "amount nu este definit cand active este False."
+      },
+      "patch": {
+        "file": "discount_picker_1.py",
+        "line": 2,
+        "old_line": "if active:",
+        "new_lines": [
+          "    amount = 0",
+          "    if active:"
+        ]
+      },
+      "verdict": {
+        "accepted": true,
+        "tests": [
+          "False produce reducere 0",
+          "True produce reducerea configurata"
+        ]
+      },
+      "provenance": {
+        "source": "manual_project_holdout",
+        "created_by": "AI-assisted synthetic data",
+        "ollama_used": false,
+        "external_model_output": false
+      }
+    },
+    "holdout-026": {
+      "id": "holdout-026",
+      "program": "discount_picker",
+      "template_id": "discount_picker_v1",
+      "family": "unbound_local",
+      "initial_code": "def discount(active):\n    if active:\n        amount = 2\n    return amount\n\nprint(discount(False))\n",
+      "error": "UnboundLocalError: local variable 'amount' referenced before assignment",
+      "log": "File \"discount_picker_2.py\", line 4, in discount\n    return amount\nUnboundLocalError: local variable 'amount' referenced before assignment",
+      "diagnosis": {
+        "type": "UnboundLocalError",
+        "location": {
+          "file": "discount_picker_2.py",
+          "line": 4
+        },
+        "evidence": "amount nu este definit cand active este False."
+      },
+      "patch": {
+        "file": "discount_picker_2.py",
+        "line": 2,
+        "old_line": "if active:",
+        "new_lines": [
+          "    amount = 0",
+          "    if active:"
+        ]
+      },
+      "verdict": {
+        "accepted": true,
+        "tests": [
+          "False produce reducere 0",
+          "True produce reducerea configurata"
+        ]
+      },
+      "provenance": {
+        "source": "manual_project_holdout",
+        "created_by": "AI-assisted synthetic data",
+        "ollama_used": false,
+        "external_model_output": false
+      }
+    },
+    "holdout-027": {
+      "id": "holdout-027",
+      "program": "discount_picker",
+      "template_id": "discount_picker_v1",
+      "family": "unbound_local",
+      "initial_code": "def discount(active):\n    if active:\n        amount = 3\n    return amount\n\nprint(discount(False))\n",
+      "error": "UnboundLocalError: local variable 'amount' referenced before assignment",
+      "log": "File \"discount_picker_3.py\", line 4, in discount\n    return amount\nUnboundLocalError: local variable 'amount' referenced before assignment",
+      "diagnosis": {
+        "type": "UnboundLocalError",
+        "location": {
+          "file": "discount_picker_3.py",
+          "line": 4
+        },
+        "evidence": "amount nu este definit cand active este False."
+      },
+      "patch": {
+        "file": "discount_picker_3.py",
+        "line": 2,
+        "old_line": "if active:",
+        "new_lines": [
+          "    amount = 0",
+          "    if active:"
+        ]
+      },
+      "verdict": {
+        "accepted": true,
+        "tests": [
+          "False produce reducere 0",
+          "True produce reducerea configurata"
+        ]
+      },
+      "provenance": {
+        "source": "manual_project_holdout",
+        "created_by": "AI-assisted synthetic data",
+        "ollama_used": false,
+        "external_model_output": false
+      }
+    },
+    "holdout-028": {
+      "id": "holdout-028",
+      "program": "tree_walk",
+      "template_id": "tree_walk_v1",
+      "family": "recursion_error",
+      "initial_code": "def walk(depth):\n    return walk(depth + 1)\n\nwalk(1)\n",
+      "error": "RecursionError: maximum recursion depth exceeded",
+      "log": "File \"tree_walk_1.py\", line 2, in walk\n    return walk(depth + 1)\nRecursionError: maximum recursion depth exceeded",
+      "diagnosis": {
+        "type": "RecursionError",
+        "location": {
+          "file": "tree_walk_1.py",
+          "line": 2
+        },
+        "evidence": "walk mareste depth si nu are caz de baza."
+      },
+      "patch": {
+        "file": "tree_walk_1.py",
+        "line": 2,
+        "old_line": "return walk(depth + 1)",
+        "new_lines": [
+          "    if depth <= 0:",
+          "        return 0",
+          "    return walk(depth - 1)"
+        ]
+      },
+      "verdict": {
+        "accepted": true,
+        "tests": [
+          "mersul ajunge la cazul de baza",
+          "adancimea zero returneaza 0"
+        ]
+      },
+      "provenance": {
+        "source": "manual_project_holdout",
+        "created_by": "AI-assisted synthetic data",
+        "ollama_used": false,
+        "external_model_output": false
+      }
+    },
+    "holdout-029": {
+      "id": "holdout-029",
+      "program": "tree_walk",
+      "template_id": "tree_walk_v1",
+      "family": "recursion_error",
+      "initial_code": "def walk(depth):\n    return walk(depth + 2)\n\nwalk(2)\n",
+      "error": "RecursionError: maximum recursion depth exceeded",
+      "log": "File \"tree_walk_2.py\", line 2, in walk\n    return walk(depth + 2)\nRecursionError: maximum recursion depth exceeded",
+      "diagnosis": {
+        "type": "RecursionError",
+        "location": {
+          "file": "tree_walk_2.py",
+          "line": 2
+        },
+        "evidence": "walk mareste depth si nu are caz de baza."
+      },
+      "patch": {
+        "file": "tree_walk_2.py",
+        "line": 2,
+        "old_line": "return walk(depth + 2)",
+        "new_lines": [
+          "    if depth <= 0:",
+          "        return 0",
+          "    return walk(depth - 2)"
+        ]
+      },
+      "verdict": {
+        "accepted": true,
+        "tests": [
+          "mersul ajunge la cazul de baza",
+          "adancimea zero returneaza 0"
+        ]
+      },
+      "provenance": {
+        "source": "manual_project_holdout",
+        "created_by": "AI-assisted synthetic data",
+        "ollama_used": false,
+        "external_model_output": false
+      }
+    },
+    "holdout-030": {
+      "id": "holdout-030",
+      "program": "tree_walk",
+      "template_id": "tree_walk_v1",
+      "family": "recursion_error",
+      "initial_code": "def walk(depth):\n    return walk(depth + 3)\n\nwalk(3)\n",
+      "error": "RecursionError: maximum recursion depth exceeded",
+      "log": "File \"tree_walk_3.py\", line 2, in walk\n    return walk(depth + 3)\nRecursionError: maximum recursion depth exceeded",
+      "diagnosis": {
+        "type": "RecursionError",
+        "location": {
+          "file": "tree_walk_3.py",
+          "line": 2
+        },
+        "evidence": "walk mareste depth si nu are caz de baza."
+      },
+      "patch": {
+        "file": "tree_walk_3.py",
+        "line": 2,
+        "old_line": "return walk(depth + 3)",
+        "new_lines": [
+          "    if depth <= 0:",
+          "        return 0",
+          "    return walk(depth - 3)"
+        ]
+      },
+      "verdict": {
+        "accepted": true,
+        "tests": [
+          "mersul ajunge la cazul de baza",
+          "adancimea zero returneaza 0"
+        ]
+      },
+      "provenance": {
+        "source": "manual_project_holdout",
+        "created_by": "AI-assisted synthetic data",
+        "ollama_used": false,
+        "external_model_output": false
+      }
+    }
+  },
+  "reports": {
+    "final_audit": {
+      "frozen_hashes": {
+        "holdout_manifest": true,
+        "tokenizer_file": true,
+        "evaluator:benchmark_modes.py": true,
+        "evaluator:modes.py": true,
+        "evaluator:ollama_mode.py": true,
+        "evaluator:repair_role.py": true,
+        "checkpoint:base": true,
+        "checkpoint_file:base": true,
+        "checkpoint:diagnostic": true,
+        "checkpoint_file:diagnostic": true,
+        "checkpoint:repair-a": true,
+        "checkpoint_file:repair-a": true,
+        "checkpoint:repair-b": true,
+        "checkpoint_file:repair-b": true,
+        "checkpoint:test": true,
+        "checkpoint_file:test": true,
+        "checkpoint:critic": true,
+        "checkpoint_file:critic": true,
+        "checkpoint:coordinator": true,
+        "checkpoint_file:coordinator": true
+      },
+      "all_frozen_hashes_match": true,
+      "roles_loaded_sequentially": [
+        "base",
+        "diagnostic",
+        "repair-a",
+        "repair-b",
+        "test",
+        "critic",
+        "coordinator"
+      ],
+      "ghost_only_external_calls": [],
+      "ghost_only_without_ollama_or_web": true,
+      "holdout_summary": {
+        "split": "holdout",
+        "cases": 30,
+        "modes": {
+          "ghost-only": {
+            "diagnosis_correct_percent": 0.0,
+            "correct_at_1_percent": 0.0,
+            "correct_at_2_percent": 0.0,
+            "false_accept_candidates_if_only_syntax_and_target_were_checked": 0,
+            "correct_refusals": 30,
+            "elapsed_seconds": 109.381
+          },
+          "rule-baseline": {
+            "diagnosis_correct_percent": 100.0,
+            "correct_at_1_percent": 0.0,
+            "correct_at_2_percent": 0.0,
+            "false_accept_candidates_if_only_syntax_and_target_were_checked": 3,
+            "correct_refusals": 27,
+            "elapsed_seconds": 0.001
+          },
+          "ollama-only": {
+            "diagnosis_correct_percent": 40.0,
+            "correct_at_1_percent": 0.0,
+            "correct_at_2_percent": 0.0,
+            "false_accept_candidates_if_only_syntax_and_target_were_checked": 4,
+            "correct_refusals": 21,
+            "elapsed_seconds": 1207.073
+          },
+          "hybrid": {
+            "diagnosis_correct_percent": 40.0,
+            "correct_at_1_percent": 0.0,
+            "correct_at_2_percent": 0.0,
+            "false_accept_candidates_if_only_syntax_and_target_were_checked": 4,
+            "correct_refusals": 21,
+            "elapsed_seconds": 1316.453
+          }
+        },
+        "regressions": {
+          "executed": false,
+          "reason": "Docker indisponibil; candidatii holdout nu au fost executati pe gazda."
+        },
+        "interpretation": [
+          "Sintaxa si tinta permisa nu dovedesc corectitudinea patchului.",
+          "Niciun candidat holdout nu a coincis cu patchul asteptat.",
+          "Rezultatele nu sunt folosite pentru reglarea acestei versiuni."
+        ]
+      },
+      "demo": {
+        "accepted_candidate": {
+          "allowed": true,
+          "stage": "ready",
+          "reason": "Candidatul poate fi aplicat si retestat."
+        },
+        "accepted_candidate_applied_on_disposable_copy": true,
+        "rejected_candidate": {
+          "allowed": false,
+          "stage": "security",
+          "reason": "Fisier nepermis pentru patch: C:\\Users\\George\\Desktop\\Proiecte personale\\AI Ghost Research Developer\\tmp_pytest_guide\\audit\\forbidden.py"
+        },
+        "real_project_modified": false
+      },
+      "ghost_success_demonstrated": false,
+      "ghost_failure": "Ghost Diagnostic nu produce JSON valid pe holdout; pipeline-ul refuza sigur."
+    },
+    "holdout_freeze": {
+      "frozen_at": "2026-09-26T18:44:16.565026+03:00",
+      "case_count": 30,
+      "program_count": 10,
+      "family_count": 10,
+      "holdout_manifest_sha256": "41f01e0fc536ad24e7b1bc4f0e03cd0eb78947c8c7e192b40d16a97a7864c71e",
+      "tokenizer_fingerprint": "07ac51f0f9eb003e09df61bfe02c1160b1a9653fd6c6260314b787cf73a1cbc2",
+      "tokenizer_file_sha256": "a5e737168bb895ee01073924895f51dc591fa225a0243fb838ab41ee69c0b322",
+      "checkpoint_hashes": {
+        "base": "f47fbf0afee2838dc8742a459faa0a87d7fa95ac6d3790bf0c54f7dd6bcdde40",
+        "diagnostic": "e9d7c1098fb20742eb2b5059f9e0af05515c2112404e480d9195911cbf3d0f2f",
+        "repair-a": "633c1e2e671c4d0745f2abc3592dd39af14eb0754a7da893dcd1a4fb42c2a1a9",
+        "repair-b": "bba21f653df8512af769f9ec0fcac1a7e9ee8331d2ea2a19d89bd4a7ceb4e333",
+        "test": "b5eaca996798066233f1fb43ff21cc318f727efcd496b7951703a97e7ca1a9ae",
+        "critic": "78a9e96d3ef0df54783fa4a1538b78914d0c571d00b3c08af9194cd170e1a0b7",
+        "coordinator": "a9aaad758be70a505cf39432f35b7708a6b58e1fbaf10078205646a6aeb4838a"
+      },
+      "evaluator_hashes": {
+        "benchmark_modes.py": "4b7833396103471f92a7d86a90e80ad9a327581de027a09066f866efc98b824b",
+        "modes.py": "dd9eb8b5e52bf56123d963318f52b5f1f572d0d177e7cf6c62baeadfb4689576",
+        "ollama_mode.py": "6ba78c895a23d6f8b9e7fc143390288a2940005e2d16882088fa43b63d5d7cde",
+        "repair_role.py": "363f786a6f060d9408dc41272deffe78d55e58fc5c1b0c37d350a511ba38dfd8"
+      },
+      "rules": [
+        "Nu se modifica modelele sau evaluatorul dupa citirea rezultatelor.",
+        "O noua versiune reglata necesita alt holdout.",
+        "Iesirile Ollama nu intra in datele Ghost."
+      ]
+    },
+    "holdout_results_summary": {
+      "split": "holdout",
+      "cases": 30,
+      "modes": {
+        "ghost-only": {
+          "diagnosis_correct_percent": 0.0,
+          "correct_at_1_percent": 0.0,
+          "correct_at_2_percent": 0.0,
+          "false_accept_candidates_if_only_syntax_and_target_were_checked": 0,
+          "correct_refusals": 30,
+          "elapsed_seconds": 109.381
+        },
+        "rule-baseline": {
+          "diagnosis_correct_percent": 100.0,
+          "correct_at_1_percent": 0.0,
+          "correct_at_2_percent": 0.0,
+          "false_accept_candidates_if_only_syntax_and_target_were_checked": 3,
+          "correct_refusals": 27,
+          "elapsed_seconds": 0.001
+        },
+        "ollama-only": {
+          "diagnosis_correct_percent": 40.0,
+          "correct_at_1_percent": 0.0,
+          "correct_at_2_percent": 0.0,
+          "false_accept_candidates_if_only_syntax_and_target_were_checked": 4,
+          "correct_refusals": 21,
+          "elapsed_seconds": 1207.073
+        },
+        "hybrid": {
+          "diagnosis_correct_percent": 40.0,
+          "correct_at_1_percent": 0.0,
+          "correct_at_2_percent": 0.0,
+          "false_accept_candidates_if_only_syntax_and_target_were_checked": 4,
+          "correct_refusals": 21,
+          "elapsed_seconds": 1316.453
+        }
+      },
+      "regressions": {
+        "executed": false,
+        "reason": "Docker indisponibil; candidatii holdout nu au fost executati pe gazda."
+      },
+      "interpretation": [
+        "Sintaxa si tinta permisa nu dovedesc corectitudinea patchului.",
+        "Niciun candidat holdout nu a coincis cu patchul asteptat.",
+        "Rezultatele nu sunt folosite pentru reglarea acestei versiuni."
+      ]
+    },
+    "registry": {
+      "version": 1,
+      "tokenizer": {
+        "path": "artifacts/tokenizer.json",
+        "fingerprint": "07ac51f0f9eb003e09df61bfe02c1160b1a9653fd6c6260314b787cf73a1cbc2",
+        "file_sha256": "a5e737168bb895ee01073924895f51dc591fa225a0243fb838ab41ee69c0b322"
+      },
+      "manifests": [
+        {
+          "split": "train",
+          "path": "data/manifests/train.json",
+          "sha256": "02335c809cf235c40d69986bf1bacbe1e304e0b132685244402d4179cfac2627"
+        },
+        {
+          "split": "dev",
+          "path": "data/manifests/dev.json",
+          "sha256": "0818b732f251866e87c02e4a2fc03a7aa8da1606f5045fb9e15556fd2b45b88b"
+        },
+        {
+          "split": "holdout",
+          "path": "data/manifests/holdout.json",
+          "sha256": "41f01e0fc536ad24e7b1bc4f0e03cd0eb78947c8c7e192b40d16a97a7864c71e"
+        }
+      ],
+      "roles": [
+        {
+          "role": "base",
+          "status": "trained_experimental",
+          "checkpoint_kind": "tinyghost-base",
+          "checkpoint_path": "checkpoints/base/best.pt",
+          "checkpoint_sha256": "f47fbf0afee2838dc8742a459faa0a87d7fa95ac6d3790bf0c54f7dd6bcdde40",
+          "model_config": {
+            "vocab_size": 326,
+            "context_length": 384,
+            "embed_dim": 192,
+            "num_heads": 4,
+            "num_layers": 4,
+            "mlp_ratio": 4,
+            "dropout": 0.0
+          },
+          "seed": 20260921,
+          "step": 12,
+          "run_id": "base-step-12-f47fbf0afee2",
+          "parent": null,
+          "base_checkpoint_sha256": null,
+          "metrics_path": "checkpoints/base/summary.json",
+          "metrics_sha256": "efef9a66abc84c4ce23819e3bbdc465bca5de7ae181f632d4c75d4c8eed7a5bf"
+        },
+        {
+          "role": "diagnostic",
+          "status": "trained_experimental",
+          "checkpoint_kind": "ghost-diagnostic",
+          "checkpoint_path": "checkpoints/diagnostic/best.pt",
+          "checkpoint_sha256": "e9d7c1098fb20742eb2b5059f9e0af05515c2112404e480d9195911cbf3d0f2f",
+          "model_config": {
+            "vocab_size": 326,
+            "context_length": 384,
+            "embed_dim": 192,
+            "num_heads": 4,
+            "num_layers": 4,
+            "mlp_ratio": 4,
+            "dropout": 0.0
+          },
+          "seed": 20260922,
+          "step": 16,
+          "run_id": "diagnostic-step-16-e9d7c1098fb2",
+          "parent": "base",
+          "base_checkpoint_sha256": "f47fbf0afee2838dc8742a459faa0a87d7fa95ac6d3790bf0c54f7dd6bcdde40",
+          "metrics_path": "checkpoints/diagnostic/metrics.json",
+          "metrics_sha256": "6013caeb9761419d6fb4f2f6673bd32dd1c442dfc342768004603d11b2fbb89a"
+        },
+        {
+          "role": "repair-a",
+          "status": "trained_experimental",
+          "checkpoint_kind": "ghost-repair-a",
+          "checkpoint_path": "checkpoints/repair_a/best.pt",
+          "checkpoint_sha256": "633c1e2e671c4d0745f2abc3592dd39af14eb0754a7da893dcd1a4fb42c2a1a9",
+          "model_config": {
+            "vocab_size": 326,
+            "context_length": 384,
+            "embed_dim": 192,
+            "num_heads": 4,
+            "num_layers": 4,
+            "mlp_ratio": 4,
+            "dropout": 0.0
+          },
+          "seed": 2026092301,
+          "step": 12,
+          "run_id": "repair-a-step-12-633c1e2e671c",
+          "parent": "base",
+          "base_checkpoint_sha256": "f47fbf0afee2838dc8742a459faa0a87d7fa95ac6d3790bf0c54f7dd6bcdde40",
+          "metrics_path": "checkpoints/repair_evaluation/metrics.json",
+          "metrics_sha256": "edcd011bd20009356c9efd2a8e7de6b539e1d928a03665945ee52cc98e343438"
+        },
+        {
+          "role": "repair-b",
+          "status": "trained_experimental",
+          "checkpoint_kind": "ghost-repair-b",
+          "checkpoint_path": "checkpoints/repair_b/best.pt",
+          "checkpoint_sha256": "bba21f653df8512af769f9ec0fcac1a7e9ee8331d2ea2a19d89bd4a7ceb4e333",
+          "model_config": {
+            "vocab_size": 326,
+            "context_length": 384,
+            "embed_dim": 192,
+            "num_heads": 4,
+            "num_layers": 4,
+            "mlp_ratio": 4,
+            "dropout": 0.0
+          },
+          "seed": 2026092302,
+          "step": 12,
+          "run_id": "repair-b-step-12-bba21f653df8",
+          "parent": "base",
+          "base_checkpoint_sha256": "f47fbf0afee2838dc8742a459faa0a87d7fa95ac6d3790bf0c54f7dd6bcdde40",
+          "metrics_path": "checkpoints/repair_evaluation/metrics.json",
+          "metrics_sha256": "edcd011bd20009356c9efd2a8e7de6b539e1d928a03665945ee52cc98e343438"
+        },
+        {
+          "role": "test",
+          "status": "trained_experimental",
+          "checkpoint_kind": "ghost-test",
+          "checkpoint_path": "checkpoints/ghost_test/best.pt",
+          "checkpoint_sha256": "b5eaca996798066233f1fb43ff21cc318f727efcd496b7951703a97e7ca1a9ae",
+          "model_config": {
+            "vocab_size": 326,
+            "context_length": 384,
+            "embed_dim": 192,
+            "num_heads": 4,
+            "num_layers": 4,
+            "mlp_ratio": 4,
+            "dropout": 0.0
+          },
+          "seed": 20260924,
+          "step": 12,
+          "run_id": "test-step-12-b5eaca996798",
+          "parent": "base",
+          "base_checkpoint_sha256": "f47fbf0afee2838dc8742a459faa0a87d7fa95ac6d3790bf0c54f7dd6bcdde40",
+          "metrics_path": "checkpoints/ghost_test/metrics.json",
+          "metrics_sha256": "1f6a320a04b59220fb602e60f62077e5d52743fe0dbf7d057e87099b18c6b65f"
+        },
+        {
+          "role": "critic",
+          "status": "trained_experimental",
+          "checkpoint_kind": "ghost-critic",
+          "checkpoint_path": "checkpoints/ghost_critic/best.pt",
+          "checkpoint_sha256": "78a9e96d3ef0df54783fa4a1538b78914d0c571d00b3c08af9194cd170e1a0b7",
+          "model_config": {
+            "vocab_size": 326,
+            "context_length": 384,
+            "embed_dim": 192,
+            "num_heads": 4,
+            "num_layers": 4,
+            "mlp_ratio": 4,
+            "dropout": 0.0
+          },
+          "seed": 20260925,
+          "step": 16,
+          "run_id": "critic-step-16-78a9e96d3ef0",
+          "parent": "base",
+          "base_checkpoint_sha256": "f47fbf0afee2838dc8742a459faa0a87d7fa95ac6d3790bf0c54f7dd6bcdde40",
+          "metrics_path": "checkpoints/ghost_critic/metrics.json",
+          "metrics_sha256": "6ba4553df12ea7cbd4d0125bd8533271488a220e3ac9c37f9eaaac5211f380e3"
+        },
+        {
+          "role": "coordinator",
+          "status": "trained_experimental",
+          "checkpoint_kind": "ghost-coordinator",
+          "checkpoint_path": "checkpoints/ghost_coordinator/best.pt",
+          "checkpoint_sha256": "a9aaad758be70a505cf39432f35b7708a6b58e1fbaf10078205646a6aeb4838a",
+          "model_config": {
+            "vocab_size": 326,
+            "context_length": 384,
+            "embed_dim": 192,
+            "num_heads": 4,
+            "num_layers": 4,
+            "mlp_ratio": 4,
+            "dropout": 0.0
+          },
+          "seed": 20260926,
+          "step": 16,
+          "run_id": "coordinator-step-16-a9aaad758be7",
+          "parent": "base",
+          "base_checkpoint_sha256": "f47fbf0afee2838dc8742a459faa0a87d7fa95ac6d3790bf0c54f7dd6bcdde40",
+          "metrics_path": "checkpoints/ghost_coordinator/metrics.json",
+          "metrics_sha256": "054a5064e79dece1fa46d431dcb1d4f8bd886aa0629756f991a2510a284db6dc"
+        }
+      ],
+      "notes": [
+        "Toate rolurile pornesc din greutati Ghost proprii.",
+        "Statusul trained_experimental nu afirma performanta utila pe dev.",
+        "Checkpointurile sunt locale si nu provin din Ollama sau modele externe."
+      ]
+    }
+  },
+  "archive": "../archive/ghost_v1_before_consolidation_2026-10-27.zip"
+}
